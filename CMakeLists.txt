@@ -25,7 +25,11 @@ set(SOURCE_FILES
     "src/Environment/Level.cpp" 
 
     src/Entities/Entity.h 
-    src/Entities/Entity.cpp )
+    src/Entities/Entity.cpp 
+    src/Entities/Enemy.h 
+    src/Entities/Enemy.cpp 
+    src/Entities/Player.h 
+    src/Entities/Player.cpp )
 add_executable(NotThePrisoner ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp")
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)

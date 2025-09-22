@@ -25,14 +25,3 @@ void GameObject::setCollider(sf::FloatRect collider)
 	this->collider = collider;
 }
 
-bool GameObject::initialiseSprite(sf::Texture& texture, std::string filename)
-{
-	if (!texture.loadFromFile(filename))
-	{
-		std::cout << "Could not load texture";
-	}
-
-	sprite->setTexture(texture);
-
-	return true;
-}

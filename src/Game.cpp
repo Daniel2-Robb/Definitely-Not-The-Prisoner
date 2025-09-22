@@ -18,8 +18,7 @@ bool Game::init()
 
 	//init characters
   //player
-	player.initialiseSprite(player_texture, "../Data/Images/kenney_pixelplatformer/Characters/character_0000.png");
-	player.getSprite()->setPosition(50, 300);
+	
 
 	return success;
 }

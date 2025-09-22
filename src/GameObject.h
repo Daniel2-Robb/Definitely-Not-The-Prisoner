@@ -1,23 +1,26 @@
-#ifndef PLATFORMER_GAMEOBJECT_H
-#define PLATFORMER_GAMEOBJECT_H
+
+#ifndef _NOTTHEPRISONER_GAMEOBJECT_HPP_
+#define _NOTTHEPRISONER_GAMEOBJECT_HPP_
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 class GameObject
 {
-public:
-	GameObject();
-	~GameObject();
-	bool initialiseSprite(sf::Texture& texture, std::string filename);
-	sf::Sprite* getSprite();
-	void movement(float dt);
-
 private:
-	sf::Sprite* sprite = nullptr;
+	// Rendering/Graphics
+	sf::Sprite sprite;
 
+protected:
+	// Object data
+	sf::FloatRect collider;
 
+public:
+	GameObject(sf::Texture& texture);
+
+	sf::Sprite& get_sprite();
+	sf::FloatRect get_collider();
+	void set_collider(sf::FloatRect collider);
 };
 
 
-#endif // PLATFORMER_GAMEOBJECT_H
+#endif // _NOTTHEPRISONER_GAMEOBJECT_HPP_

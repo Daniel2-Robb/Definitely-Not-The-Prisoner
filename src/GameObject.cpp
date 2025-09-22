@@ -1,38 +1,26 @@
 #include "GameObject.h"
 #include <math.h>
 
-GameObject::GameObject()
+GameObject::GameObject(sf::Texture& texture)
 {
-    sprite = new sf::Sprite();
+    sprite = sf::Sprite();
+	sprite.setTexture(texture);
 }
 
-GameObject::~GameObject()
+
+sf::Sprite& GameObject::get_sprite()
 {
-    if (sprite != nullptr)
-    {
-        delete sprite;
-        sprite = nullptr;
-    }
+	sprite.setPosition(collider.getPosition());
+
+	return sprite;
 }
 
-bool GameObject::initialiseSprite(sf::Texture& texture, std::string filename)
+sf::FloatRect GameObject::get_collider()
 {
-    if (!texture.loadFromFile(filename))
-    {
-        std::cout << "Could not load texture";
-    }
-
-    sprite->setTexture(texture);
-
-    return true;
+	return collider;
 }
 
-sf::Sprite* GameObject::getSprite()
+void GameObject::set_collider(sf::FloatRect collider)
 {
-    return sprite;
-}
-
-void GameObject::movement(float dt)
-{
-
+	this->collider = collider;
 }

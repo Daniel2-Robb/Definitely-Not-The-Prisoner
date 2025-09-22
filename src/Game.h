@@ -3,6 +3,7 @@
 #define _NOTTHEPRISONER_GAME_HPP_
 
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
 
 class Game
 {
@@ -22,11 +23,14 @@ public:
 	void render();
 
 	GameObject player;
-	sf::Texture player_Texture;
+	sf::Texture player_texture;
+
+	GameObject enemies[19];
+	sf::Texture enemy_texture;
 
 	// Player Input
-	void keyboard_input(const sf::Event& event);
-	void mouse_input(const sf::Event& event);
+	void keyboardInput(const sf::Event& event);
+	void mouseInput(const sf::Event& event);
 };
 
 #endif // _NOTTHEPRISONER_GAME_HPP_

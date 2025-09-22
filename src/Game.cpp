@@ -1,5 +1,5 @@
 
-#include "Game.hpp"
+#include "Game.h"
 
 Game::Game(sf::RenderWindow& window) : window(window)
 {

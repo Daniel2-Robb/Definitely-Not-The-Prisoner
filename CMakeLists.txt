@@ -19,7 +19,10 @@ set(SOURCE_FILES
     src/Game.h 
     src/Game.cpp
     src/GameObject.h 
-    src/GameObject.cpp )
+    src/GameObject.cpp 
+
+    "src/Environment/Level.h" 
+    "src/Environment/Level.cpp" )
 add_executable(NotThePrisoner ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp")
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)

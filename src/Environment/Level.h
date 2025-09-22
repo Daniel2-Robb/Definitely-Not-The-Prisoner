@@ -1,6 +1,6 @@
 
-#ifndef _NOTTHEPRISONER_LEVEL_HPP_
-#define _NOTTHEPRISONER_LEVEL_HPP_
+#ifndef _NOTTHEPRISONER_LEVEL_H_
+#define _NOTTHEPRISONER_LEVEL_H_
 
 #include <array>
 #include <SFML/Graphics.hpp>

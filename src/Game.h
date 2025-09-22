@@ -1,6 +1,6 @@
 
-#ifndef _NOTTHEPRISONER_GAME_HPP_
-#define _NOTTHEPRISONER_GAME_HPP_
+#ifndef _NOTTHEPRISONER_GAME_H_
+#define _NOTTHEPRISONER_GAME_H_
 
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"

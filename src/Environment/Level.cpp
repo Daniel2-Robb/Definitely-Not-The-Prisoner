@@ -17,7 +17,7 @@ Level::Level(sf::Texture tileset, std::array<std::array<Tile, 100>, 100> tiles) 
 {
 	// Set up the tile sprite
 	tile_sprite.setTexture(this->tileset);
-	tile_sprite.setTextureRect(sf::FloatRect({ 0, 0, 16, 16 }));
+	tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 }
 
 

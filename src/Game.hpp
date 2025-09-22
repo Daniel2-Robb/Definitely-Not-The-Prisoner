@@ -10,12 +10,19 @@ private:
 	// Rendering/Graphics
 	sf::RenderWindow& window;
 
+	bool in_menu = false;
+	bool in_cutscene = false;
+
 public:
 	Game(sf::RenderWindow& window);
+	~Game();
 
 	bool init();
 	void update(float dt);
 	void render();
+
+	GameObject player;
+	sf::Texture player_Texture;
 
 	// Player Input
 	void keyboard_input(const sf::Event& event);

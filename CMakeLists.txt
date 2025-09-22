@@ -17,8 +17,10 @@ FetchContent_MakeAvailable(SFML)
 set(SOURCE_FILES 
     src/main.cpp 
     src/Game.hpp 
-    src/Game.cpp )
-add_executable(NotThePrisoner ${SOURCE_FILES})
+    src/Game.cpp
+    src/GameObject.h
+    src/GameObject.cpp)
+add_executable(NotThePrisoner ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp")
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)

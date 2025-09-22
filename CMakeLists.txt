@@ -15,10 +15,12 @@ FetchContent_MakeAvailable(SFML)
 
 # Executable creation 
 set(SOURCE_FILES 
-    src/main.cpp )
+    src/main.cpp 
+    src/Game.hpp 
+    src/Game.cpp )
 add_executable(NotThePrisoner ${SOURCE_FILES})
 
-target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window, sfml-system sfml-audio)
+target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/content/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/content/)

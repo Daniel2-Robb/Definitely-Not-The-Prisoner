@@ -68,14 +68,15 @@ void Game::keyboardInput(const sf::Event& event)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 		}
-		else if (event.key.code == sf::Mouse::Left)
-		{
-			player->playerInput(keydown ? Player::Input::SHOOT : Player::Input::IDLE);
-		}
 	}
 }
 
 void Game::mouseInput(const sf::Event& event)
 {
+	Player* player = &level->getPlayer();
 
+	if (event.key.code == sf::Mouse::Left)
+	{
+		player->playerInput(mouseInput ? Player::Input::SHOOT : Player::Input::IDLE);
+	}
 }

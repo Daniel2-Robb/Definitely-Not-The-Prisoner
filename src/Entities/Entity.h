@@ -8,6 +8,7 @@ class Entity : public GameObject
 {
 protected:
 	sf::Vector2f velocity;
+	float speed = 0.f;
 
 public:
 	Entity(sf::Texture& texture);

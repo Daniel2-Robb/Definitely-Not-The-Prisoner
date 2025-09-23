@@ -16,11 +16,7 @@ bool Game::init()
 {
 	bool success = true;
 
-	//init characters
-  //player
-	Player* player = &level->getPlayer();
-	//player.
-	
+
 
 	return success;
 }

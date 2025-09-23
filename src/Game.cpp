@@ -80,6 +80,8 @@ void Game::keyboardInput(const sf::Event& event)
 
 	switch (state)
 	{
+		
+
 	case MENU:
 		//In-menu inputs
 
@@ -91,6 +93,10 @@ void Game::keyboardInput(const sf::Event& event)
 		break;
 
 	case GAMEPLAY:
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
 		//In-game inputs
 
 		switch (event.key.scancode)

@@ -18,19 +18,20 @@ set(SOURCE_FILES
     src/main.cpp 
     src/Game.h 
     src/Game.cpp
-    src/GameObject.h 
-    src/GameObject.cpp 
 
+    src/Objects/GameObject.h 
+    src/Objects/GameObject.cpp 
+
+    src/Objects/Entities/Entity.h 
+    src/Objects/Entities/Entity.cpp 
+    src/Objects/Entities/Enemy.h 
+    src/Objects/Entities/Enemy.cpp 
+    src/Objects/Entities/Player.h 
+    src/Objects/Entities/Player.cpp 
+    
     "src/Environment/Level.h" 
-    "src/Environment/Level.cpp" 
-
-    src/Entities/Entity.h 
-    src/Entities/Entity.cpp 
-    src/Entities/Enemy.h 
-    src/Entities/Enemy.cpp 
-    src/Entities/Player.h 
-    src/Entities/Player.cpp )
-add_executable(NotThePrisoner ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp")
+    "src/Environment/Level.cpp" )
+add_executable(NotThePrisoner ${SOURCE_FILES} "src/Objects/GameObject.h" "src/Objects/GameObject.cpp")
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)

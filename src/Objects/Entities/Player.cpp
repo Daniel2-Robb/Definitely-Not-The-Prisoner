@@ -3,22 +3,20 @@
 
 Player::Player(sf::Texture& texture) : Entity(texture)
 {
-	
+	speed = 100.f;
 }
 
 
 void Player::playerInput(Player::Input input)
 {
-	// TODO: Modify velocity and held item from type of input
-
-	switch (player_state)
+	switch (input)
 	{
 	/*case Input::IDLE:
 		velocity.x = 0;
 		velocity.y = 0;
 		break;*/
 
-	case Input::START_MOVE_LEFT:
+	case Player::Input::START_MOVE_LEFT:
 		velocity.x -= speed;
 		break;
 
@@ -54,5 +52,4 @@ void Player::playerInput(Player::Input input)
 		// TODO: Add attack command when weapons added
 		break;
 	}
-	
 }

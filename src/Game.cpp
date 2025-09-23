@@ -92,28 +92,27 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case GAMEPLAY:
 		//In-game inputs
-		Player * player = &level->getPlayer();
 
 		switch (event.key.scancode)
 		{
 		case sf::Keyboard::Scancode::A:
 		case sf::Keyboard::Scancode::Left:
-			player->playerInput(keydown ? Player::Input::START_MOVE_LEFT : Player::Input::STOP_MOVE_LEFT);
+			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_LEFT : Player::Input::STOP_MOVE_LEFT);
 			break;
 
 		case sf::Keyboard::Scancode::D:
 		case sf::Keyboard::Scancode::Right:
-			player->playerInput(keydown ? Player::Input::START_MOVE_RIGHT : Player::Input::STOP_MOVE_RIGHT);
+			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_RIGHT : Player::Input::STOP_MOVE_RIGHT);
 			break;
 
 		case sf::Keyboard::Scancode::W:
 		case sf::Keyboard::Scancode::Up:
-			player->playerInput(keydown ? Player::Input::START_MOVE_UP : Player::Input::STOP_MOVE_UP);
+			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_UP : Player::Input::STOP_MOVE_UP);
 			break;
 
 		case sf::Keyboard::Scancode::S:
 		case sf::Keyboard::Scancode::Down:
-			player->playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
+			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 			break;
 		}
 		break;
@@ -122,12 +121,10 @@ void Game::keyboardInput(const sf::Event& event)
 
 void Game::mouseInput(const sf::Event& event)
 {
-	Player* player = &level->getPlayer();
-
 	// TODO: Add player mouse input
 
-	/*if (event.MouseButtonPressed == sf::Mouse::Left)
+	if (event.MouseButtonPressed == sf::Mouse::Left)
 	{
-		player->playerInput(Player::Input::ATTACK);
+		level->getPlayer().playerInput(Player::Input::ATTACK);
 	}
 }

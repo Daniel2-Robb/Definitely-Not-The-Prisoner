@@ -72,7 +72,7 @@ bool Level::collisionCheck(Entity& entity)
 		{
 			if (collision_map[i][j])
 			{
-				entity.collisonResolve(sf::FloatRect(j, i, tile_size, tile_size));
+				entity.collisonResolve(sf::FloatRect(j * tile_size, i * tile_size, tile_size, tile_size));
 
 				return true;
 			}

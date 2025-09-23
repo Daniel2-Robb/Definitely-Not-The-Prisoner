@@ -16,14 +16,34 @@ bool Game::init()
 {
 	bool success = true;
 
+	if (!level_tileset.loadFromFile("../content/LevelTilemap.png"))
+	{
+		std::cout << "LevelTilemap.png failed to load" << std::endl;
+		success = false;
+	}
+	if (!character_tileset.loadFromFile("../content/ActorSpritesheet.png"))
+	{
+		std::cout << "ActorSpritesheet.png failed to load" << std::endl;
+		success = false;
+	}
 
+	// NOTE: Remove after finished testing
+	std::array<std::array<Level::Tile, 100>, 100> testtiles;
+	for (auto& row : testtiles)
+	{
+		row.fill(Level::Tile::Empty);
+	}
+	testtiles[0][0] = Level::Wall;
+	testtiles[5][3] = Level::Wall;
+
+	level = new Level(level_tileset, character_tileset, testtiles);
 
 	return success;
 }
 
 void Game::update(float dt)
 {
-	
+	// level->update(dt);
 }
 
 void Game::render()
@@ -44,7 +64,8 @@ void Game::render()
 
 	}*/
 
-	//level->render(window);
+	// TODO: Move to within switch statement?
+	level->render(window);
 }
 
 

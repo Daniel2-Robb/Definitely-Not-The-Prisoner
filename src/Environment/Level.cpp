@@ -2,7 +2,7 @@
 #include "Level.h"
 
 Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
-	: tileset(tileset), entity_tileset(entity_tileset)
+	: tileset(tileset), character_tileset(entity_tileset)
 {
 	// Initialize all tiles to Empty
 	for (auto& row : tiles)
@@ -22,11 +22,11 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 		}
 	}
 
-	player = new Player(this->entity_tileset);
+	player = new Player(this->character_tileset);
 }
 
-Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset, std::array<std::array<Tile, 100>, 100> tiles)
-	: tileset(tileset), entity_tileset(entity_tileset), tiles(tiles)
+Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<std::array<Tile, 100>, 100> tiles)
+	: tileset(tileset), character_tileset(character_tileset), tiles(tiles)
 {
 	// Set up the tile sprite
 	tile_sprite.setTexture(this->tileset);
@@ -41,7 +41,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset, std::array<std::
 		}
 	}
 
-	player = new Player(this->entity_tileset);
+	player = new Player(this->character_tileset);
 }
 
 Level::~Level()
@@ -83,37 +83,48 @@ bool Level::collisionCheck(Entity& entity)
 
 void Level::update(float dt)
 {
-	// Object and Entity collision checking
-	// TODO: Check for generic Entity collisions
+	// Entity updating
 
+	// Entity collision checking
+	// TODO: Check for generic Entity collisions
 	for (Enemy& enemy : enemies)
 	{
-		sf::Vector2i topleft(enemy.getCollider().getPosition().x, enemy.getCollider().getPosition().y);
-		sf::Vector2i downright = topleft;
-		topleft.x /= tile_size;
-		topleft.y /= tile_size;
-
-		downright += sf::Vector2i(enemy.getCollider().getSize().x, enemy.getCollider().getSize().y);
-		downright.x /= tile_size;
-		downright.y /= tile_size;
-		downright += sf::Vector2i(1, 1);
-
-		for (int i = topleft.y; i <= downright.y && i < 100; i++)
-		{
-			for (int j = topleft.x; j <= downright.x && j < 100; j++)
-			{
-				if (collision_map[i][j])
-				{
-
-				}
-			}
-		}
+		enemy.update(dt);
+		collisionCheck(enemy);
 	}
+	player->update(dt);
+	collisionCheck(*player);
 }
 
 void Level::render(sf::RenderWindow& window)
 {
-	// TODO: Render tiles and Entities
+	// Tile rendering
+	for (int y = 0; y < tiles.size(); y++)
+	{
+		for (int x = 0; x < tiles[0].size(); x++)
+		{
+			tile_sprite.setPosition(x * tile_size, y * tile_size);
+
+			switch (tiles[y][x])
+			{
+			case Tile::Floor:
+				tile_sprite.setTextureRect(sf::IntRect(48, 16, 16, 16));
+				break;
+
+			case Tile::Wall:
+				tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+				break;
+
+			default:
+				tile_sprite.setTextureRect(sf::IntRect(32, 16, 16, 16));
+				break;
+			}
+
+			window.draw(tile_sprite);
+		}
+	}
+
+	// TODO: Render entities
 }
 
 

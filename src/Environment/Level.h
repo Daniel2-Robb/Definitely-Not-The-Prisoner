@@ -11,7 +11,7 @@
 
 class Level
 {
-private:
+public:
 	enum Tile
 	{
 		Empty,
@@ -20,9 +20,10 @@ private:
 		Spawn
 	};
 
+private:
 	// Rendering/Graphics
 	sf::Texture& tileset;
-	sf::Texture& entity_tileset;
+	sf::Texture& character_tileset;
 	sf::Sprite tile_sprite;
 
 	// Level Data

@@ -2,7 +2,9 @@
 #ifndef _NOTTHEPRISONER_GAME_H_
 #define _NOTTHEPRISONER_GAME_H_
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "Environment/Level.h"
 
 class Game
@@ -10,7 +12,13 @@ class Game
 private:
 	// Rendering/Graphics
 	sf::RenderWindow& window;
+	sf::Texture level_tileset;
+	sf::Texture character_tileset;
 
+	// Game data
+	Level* level = nullptr;
+
+	// Gamestate logic
 	enum GameState
 	{
 		MENU,
@@ -18,9 +26,6 @@ private:
 		GAMEPLAY
 	};
 	enum GameState state = MENU;
-
-	// Game data
-	Level* level = nullptr;
 
 public:
 	Game(sf::RenderWindow& window);

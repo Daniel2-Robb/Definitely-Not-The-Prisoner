@@ -18,6 +18,8 @@ bool Game::init()
 
 	//init characters
   //player
+	Player* player = &level->getPlayer();
+	//player.
 	
 
 	return success;
@@ -30,6 +32,17 @@ void Game::update(float dt)
 
 void Game::render()
 {
+	switch (state)
+	{
+	//case MENU:
+
+	//case CUTSCENE:
+
+	case GAMEPLAY:
+		Player* player = &level->getPlayer();
+		player->getSprite();
+
+	}
 
 }
 
@@ -77,6 +90,6 @@ void Game::mouseInput(const sf::Event& event)
 
 	if (event.key.code == sf::Mouse::Left)
 	{
-		player->playerInput(mouseInput ? Player::Input::SHOOT : Player::Input::IDLE);
+		//take left mouse input here
 	}
 }

@@ -32,8 +32,6 @@ public:
 
 	Player(sf::Texture& texture);
 	
-	float speed = 100;
-
 	void playerInput(Input input);
 };
 

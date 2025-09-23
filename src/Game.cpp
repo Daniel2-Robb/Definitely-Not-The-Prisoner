@@ -120,4 +120,9 @@ void Game::mouseInput(const sf::Event& event)
 	Player* player = &level->getPlayer();
 
 	// TODO: Add player mouse input
+
+	if (event.MouseButtonPressed == sf::Mouse::Left)
+	{
+		player->playerInput(Player::Input::SHOOT);
+	}
 }

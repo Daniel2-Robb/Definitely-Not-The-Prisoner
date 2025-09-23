@@ -13,35 +13,46 @@ void Player::playerInput(Player::Input input)
 
 	switch (player_state)
 	{
-	/*case IDLE:
+	/*case Input::IDLE:
 		velocity.x = 0;
-		velocity.y = 0;*/
-	case START_MOVE_LEFT:
+		velocity.y = 0;
+		break;*/
+
+	case Input::START_MOVE_LEFT:
 		velocity.x -= speed;
+		break;
 
-	case STOP_MOVE_LEFT:
+	case Input::STOP_MOVE_LEFT:
 		velocity.x += speed;
+		break;
 
-	case START_MOVE_RIGHT:
+	case Input::START_MOVE_RIGHT:
 		velocity.x += speed;
+		break;
 
-	case STOP_MOVE_RIGHT:
+	case Input::STOP_MOVE_RIGHT:
 		velocity.x -= speed;
+		break;
 
-	case START_MOVE_UP:
+	case Input::START_MOVE_UP:
 		velocity.y -= speed;
+		break;
 
-	case STOP_MOVE_UP:
+	case Input::STOP_MOVE_UP:
 		velocity.y += speed;
+		break;
 
-	case START_MOVE_DOWN:
+	case Input::START_MOVE_DOWN:
 		velocity.y += speed;
+		break;
 
-	case STOP_MOVE_DOWN:
+	case Input::STOP_MOVE_DOWN:
 		velocity.y -= speed;
+		break;
 
-	//case SHOOT:
-		//This is where the shooting code goes
+	case Input::ATTACK:
+		// TODO: Add attack command when weapons added
+		break;
 	}
 	
 }

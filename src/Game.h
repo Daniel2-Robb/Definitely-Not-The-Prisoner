@@ -24,8 +24,7 @@ private:
 		MENU,
 		CUTSCENE,
 		GAMEPLAY
-	};
-	enum GameState state = MENU;
+	} state = MENU;
 
 public:
 	Game(sf::RenderWindow& window);

@@ -16,6 +16,9 @@ bool Game::init()
 {
 	bool success = true;
 
+	// NOTE: Remove after testing
+	state = GAMEPLAY;
+
 	if (!level_tileset.loadFromFile("../content/LevelTilemap.png"))
 	{
 		std::cout << "LevelTilemap.png failed to load" << std::endl;
@@ -33,7 +36,7 @@ bool Game::init()
 	{
 		row.fill(Level::Tile::Empty);
 	}
-	testtiles[0][0] = Level::Wall;
+	testtiles[2][2] = Level::Wall;
 	testtiles[5][3] = Level::Wall;
 
 	level = new Level(level_tileset, character_tileset, testtiles);
@@ -91,19 +94,20 @@ void Game::keyboardInput(const sf::Event& event)
 		//In-game inputs
 		Player * player = &level->getPlayer();
 
-		if (event.key.code == sf::Keyboard::A or event.key.code == sf::Keyboard::Left)
+		if (event.key.scancode == sf::Keyboard::Scancode::A or event.key.scancode == sf::Keyboard::Left)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_LEFT : Player::Input::STOP_MOVE_LEFT);
+			std::cout << "TEST!" << std::endl;
 		}
-		else if (event.key.code == sf::Keyboard::D or event.key.code == sf::Keyboard::Right)
+		else if (event.key.scancode == sf::Keyboard::D or event.key.scancode == sf::Keyboard::Right)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_RIGHT : Player::Input::STOP_MOVE_RIGHT);
 		}
-		else if (event.key.code == sf::Keyboard::W or event.key.code == sf::Keyboard::Up)
+		else if (event.key.scancode == sf::Keyboard::W or event.key.scancode == sf::Keyboard::Up)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_UP : Player::Input::STOP_MOVE_UP);
 		}
-		else if (event.key.code == sf::Keyboard::S or event.key.code == sf::Keyboard::Down)
+		else if (event.key.scancode == sf::Keyboard::S or event.key.scancode == sf::Keyboard::Down)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 		}

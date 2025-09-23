@@ -24,8 +24,7 @@ public:
 		STOP_MOVE_UP,
 		START_MOVE_DOWN,
 		STOP_MOVE_DOWN,
-		SHOOT
-
+		ATTACK
 	};
 
 	Input player_state = IDLE;

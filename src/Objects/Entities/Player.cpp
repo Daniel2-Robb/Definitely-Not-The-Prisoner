@@ -46,7 +46,7 @@ void Player::playerInput(Player::Input input)
 	
 }
 
-void playerShoot()
+void Player::playerShoot()
 {
 
 }

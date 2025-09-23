@@ -40,8 +40,13 @@ void Player::playerInput(Player::Input input)
 	case STOP_MOVE_DOWN:
 		velocity.y -= speed;
 
-	//case SHOOT:
-		//This is where the shooting code goes
+	case SHOOT:
+		playerShoot();
 	}
 	
+}
+
+void playerShoot()
+{
+
 }

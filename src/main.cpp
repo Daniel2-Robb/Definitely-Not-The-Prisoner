@@ -38,6 +38,11 @@ int main()
             {
                 game.keyboardInput(event);
             }
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                game.mouseInput(event);
+            }
         }
 
         game.update(dt);

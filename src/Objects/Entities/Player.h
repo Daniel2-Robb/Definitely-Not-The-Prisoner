@@ -33,6 +33,7 @@ public:
 	Player(sf::Texture& texture);
 	
 	void playerInput(Input input);
+	void playerShoot();
 };
 
 #endif // _NOTTHEPRISONER_PLAYER_H_

@@ -13,6 +13,7 @@ public:
 	Entity(sf::Texture& texture);
 
 	virtual void update(float dt); // NOTE: Maybe change this to not virtual? (depending on if it's needed or not)
+	void collisonResolve(sf::FloatRect rect);
 
 	sf::Vector2f getVelocity();
 	void setVelocity(sf::Vector2f velocity);

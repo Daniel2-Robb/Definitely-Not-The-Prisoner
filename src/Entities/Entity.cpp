@@ -13,6 +13,11 @@ void Entity::update(float dt)
 	collider.top += velocity.y * dt;
 }
 
+void Entity::collisonResolve(sf::FloatRect rect)
+{
+	// TODO: Add collision resolution code
+}
+
 
 sf::Vector2f Entity::getVelocity()
 {

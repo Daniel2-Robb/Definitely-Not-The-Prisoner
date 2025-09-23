@@ -24,9 +24,16 @@ Level::Level(sf::Texture tileset, std::array<std::array<Tile, 100>, 100> tiles) 
 void Level::update(float dt)
 {
 	// TODO: Run all Entity object updates and check for collision
+
 }
 
 void Level::render(sf::RenderWindow& window)
 {
 	// TODO: Render tiles and Entities
+}
+
+
+Player& Level::getPlayer()
+{
+	return *player;
 }

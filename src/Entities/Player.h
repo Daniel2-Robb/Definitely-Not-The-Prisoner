@@ -9,14 +9,30 @@ class Player : public Entity
 private:
 	// TODO: Add held item/weapon when implemented?
 
+
 public:
 	// All types of player input
 	enum Input
 	{
-		// TODO: Fill with all possible player actions
+		// TODO: Fill with all possible player actions#
+		IDLE,
+		START_MOVE_LEFT,
+		STOP_MOVE_LEFT,
+		START_MOVE_RIGHT,
+		STOP_MOVE_RIGHT,
+		START_MOVE_UP,
+		STOP_MOVE_UP,
+		START_MOVE_DOWN,
+		STOP_MOVE_DOWN,
+		SHOOT
+
 	};
 
+	Input player_state = IDLE;
+
 	Player(sf::Texture& texture);
+	
+	float speed = 100;
 
 	void playerInput(Input input);
 };

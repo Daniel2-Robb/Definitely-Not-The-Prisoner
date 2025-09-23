@@ -3,7 +3,7 @@
 #define _NOTTHEPRISONER_GAME_H_
 
 #include <SFML/Graphics.hpp>
-#include "GameObject.h"
+#include "Environment/Level.h"
 
 class Game
 {
@@ -11,8 +11,16 @@ private:
 	// Rendering/Graphics
 	sf::RenderWindow& window;
 
-	bool in_menu = false;
-	bool in_cutscene = false;
+	enum GameState
+	{
+		MENU,
+		CUTSCENE,
+		GAMEPLAY
+	};
+	enum GameState state = MENU;
+
+	// Game data
+	Level* level = nullptr;
 
 public:
 	Game(sf::RenderWindow& window);

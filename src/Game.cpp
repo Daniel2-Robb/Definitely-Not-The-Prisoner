@@ -46,7 +46,7 @@ bool Game::init()
 
 void Game::update(float dt)
 {
-	// level->update(dt);
+	level->update(dt);
 }
 
 void Game::render()
@@ -94,22 +94,27 @@ void Game::keyboardInput(const sf::Event& event)
 		//In-game inputs
 		Player * player = &level->getPlayer();
 
-		if (event.key.scancode == sf::Keyboard::Scancode::A or event.key.scancode == sf::Keyboard::Left)
+		switch (event.key.scancode)
 		{
+		case sf::Keyboard::Scancode::A:
+		case sf::Keyboard::Scancode::Left:
 			player->playerInput(keydown ? Player::Input::START_MOVE_LEFT : Player::Input::STOP_MOVE_LEFT);
-			std::cout << "TEST!" << std::endl;
-		}
-		else if (event.key.scancode == sf::Keyboard::D or event.key.scancode == sf::Keyboard::Right)
-		{
+			break;
+
+		case sf::Keyboard::Scancode::D:
+		case sf::Keyboard::Scancode::Right:
 			player->playerInput(keydown ? Player::Input::START_MOVE_RIGHT : Player::Input::STOP_MOVE_RIGHT);
-		}
-		else if (event.key.scancode == sf::Keyboard::W or event.key.scancode == sf::Keyboard::Up)
-		{
+			break;
+
+		case sf::Keyboard::Scancode::W:
+		case sf::Keyboard::Scancode::Up:
 			player->playerInput(keydown ? Player::Input::START_MOVE_UP : Player::Input::STOP_MOVE_UP);
-		}
-		else if (event.key.scancode == sf::Keyboard::S or event.key.scancode == sf::Keyboard::Down)
-		{
+			break;
+
+		case sf::Keyboard::Scancode::S:
+		case sf::Keyboard::Scancode::Down:
 			player->playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
+			break;
 		}
 		break;
 	}
@@ -121,8 +126,8 @@ void Game::mouseInput(const sf::Event& event)
 
 	// TODO: Add player mouse input
 
-	if (event.MouseButtonPressed == sf::Mouse::Left)
+	/*if (event.MouseButtonPressed == sf::Mouse::Left)
 	{
 		player->playerInput(Player::Input::SHOOT);
-	}
+	}*/
 }

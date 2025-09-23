@@ -80,6 +80,8 @@ void Game::keyboardInput(const sf::Event& event)
 
 	switch (state)
 	{
+		
+
 	case MENU:
 		//In-menu inputs
 
@@ -91,6 +93,10 @@ void Game::keyboardInput(const sf::Event& event)
 		break;
 
 	case GAMEPLAY:
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
 		//In-game inputs
 		Player * player = &level->getPlayer();
 
@@ -98,7 +104,7 @@ void Game::keyboardInput(const sf::Event& event)
 		{
 		case sf::Keyboard::Scancode::A:
 		case sf::Keyboard::Scancode::Left:
-			player->playerInput(keydown ? Player::Input::START_MOVE_LEFT : Player::Input::STOP_MOVE_LEFT);
+			player->playerInput(keydown ? Player::Input::START_MOVE_RIGHT : Player::Input::STOP_MOVE_RIGHT);
 			break;
 
 		case sf::Keyboard::Scancode::D:
@@ -129,5 +135,5 @@ void Game::mouseInput(const sf::Event& event)
 	/*if (event.MouseButtonPressed == sf::Mouse::Left)
 	{
 		player->playerInput(Player::Input::ATTACK);
-	}
+	}*/
 }

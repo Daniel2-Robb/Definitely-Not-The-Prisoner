@@ -34,14 +34,14 @@ void Game::render()
 }
 
 
-void Game::keyboard_input(const sf::Event& event)
+void Game::keyboardInput(const sf::Event& event)
 {
 	bool keydown = (event.type == sf::Event::KeyPressed);
 
 	// TODO: Player input handling (remember to account for menus+cutscenes!)
 }
 
-void Game::mouse_input(const sf::Event& event)
+void Game::mouseInput(const sf::Event& event)
 {
 
 }

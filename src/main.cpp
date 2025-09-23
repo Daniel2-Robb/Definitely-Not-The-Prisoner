@@ -36,7 +36,7 @@ int main()
             if (event.type == sf::Event::KeyPressed ||
                 event.type == sf::Event::KeyReleased)
             {
-                game.keyboard_input(event);
+                game.keyboardInput(event);
             }
         }
 

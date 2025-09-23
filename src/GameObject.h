@@ -16,6 +16,7 @@ protected:
 
 public:
 	GameObject(sf::Texture& texture);
+	~GameObject();
 
 	sf::Sprite& getSprite();
 	sf::FloatRect getCollider();

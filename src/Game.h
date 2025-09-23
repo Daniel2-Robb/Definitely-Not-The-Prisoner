@@ -22,12 +22,7 @@ public:
 	void update(float dt);
 	void render();
 
-	GameObject player;
-	sf::Texture player_texture;
-
-	GameObject enemies[19];
-	sf::Texture enemy_texture;
-
+	
 	// Player Input
 	void keyboardInput(const sf::Event& event);
 	void mouseInput(const sf::Event& event);

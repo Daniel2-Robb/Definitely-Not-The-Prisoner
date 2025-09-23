@@ -7,6 +7,11 @@ GameObject::GameObject(sf::Texture& texture)
 	sprite.setTexture(texture);
 }
 
+GameObject::~GameObject()
+{
+
+}
+
 
 sf::Sprite& GameObject::getSprite()
 {

@@ -128,6 +128,6 @@ void Game::mouseInput(const sf::Event& event)
 
 	/*if (event.MouseButtonPressed == sf::Mouse::Left)
 	{
-		player->playerInput(Player::Input::SHOOT);
-	}*/
+		player->playerInput(Player::Input::ATTACK);
+	}
 }

@@ -28,18 +28,23 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	switch (state)
+	/*switch (state)
 	{
-	//case MENU:
+	case MENU:
+		
+		break;
 
-	//case CUTSCENE:
+	case CUTSCENE:
+
+		break;
 
 	case GAMEPLAY:
-		Player* player = &level->getPlayer();
-		player->getSprite();
+		
+		break;
 
-	}
+	}*/
 
+	//level->render(window);
 }
 
 
@@ -54,8 +59,12 @@ void Game::keyboardInput(const sf::Event& event)
 	case MENU:
 		//In-menu inputs
 
+		break;
+
 	case CUTSCENE:
 		//In-cutscene inputs
+
+		break;
 
 	case GAMEPLAY:
 		//In-game inputs
@@ -77,6 +86,7 @@ void Game::keyboardInput(const sf::Event& event)
 		{
 			player->playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 		}
+		break;
 	}
 }
 
@@ -84,8 +94,5 @@ void Game::mouseInput(const sf::Event& event)
 {
 	Player* player = &level->getPlayer();
 
-	if (event.key.code == sf::Mouse::Left)
-	{
-		//take left mouse input here
-	}
+	// TODO: Add player mouse input
 }

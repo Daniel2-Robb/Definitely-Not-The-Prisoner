@@ -6,8 +6,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../Entities/Enemy.h"
-#include "../Entities/Player.h"
+#include "../Objects/Entities/Enemy.h"
+#include "../Objects/Entities/Player.h"
 
 class Level
 {

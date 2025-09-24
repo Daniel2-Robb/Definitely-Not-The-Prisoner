@@ -84,13 +84,13 @@ bool Level::collisionCheck(Entity& entity)
 	downright.y /= tile_size;
 
 	// Check all intersecting tiles for collidable types
-	for (int i = topleft.y; i < downright.y && i < 100 && i > 0; i++)
+	for (int i = topleft.y; i < downright.y && i < 100 && i >= 0; i++)
 	{
-		for (int j = topleft.x; j < downright.x && j < 100 && j > 0; j++)
+		for (int j = topleft.x; j < downright.x && j < 100 && j >= 0; j++)
 		{
 			if (collision_map[i][j])
 			{
-				// NOTE: Remove before commit
+				// NOTE: Remove before release
 				std::cout << j * tile_size << ":" << i * tile_size << std::endl;
 
 				entity.collisonResolve(sf::FloatRect(j * tile_size, i * tile_size, tile_size, tile_size));
@@ -113,10 +113,10 @@ void Level::update(float dt)
 	for (Enemy& enemy : enemies)
 	{
 		enemy.update(dt);
-		collisionCheck(enemy);
+		while (collisionCheck(enemy));
 	}
 	player->update(dt);
-	collisionCheck(*player);
+	while (collisionCheck(*player));
 }
 
 void Level::render(sf::RenderWindow& window)

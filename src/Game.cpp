@@ -30,16 +30,17 @@ bool Game::init()
 		success = false;
 	}
 
-	// NOTE: Remove after finished testing
-	std::array<std::array<Level::Tile, 100>, 100> testtiles;
-	for (auto& row : testtiles)
+	// NOTE: Remove after finished testing?
+	std::array<std::array<Level::Tile, 100>, 100> level_tiles;
+	for (auto& row : level_tiles)
 	{
-		row.fill(Level::Tile::Empty);
+		row.fill(Level::Tile::EMPTY);
 	}
-	testtiles[2][2] = Level::Wall;
-	testtiles[5][3] = Level::Wall;
+	std::array<std::array<Level::Tile, 15>, 15> temp_tiles;
+	// TODO: make temp_tiles for temp level for testing etc etc
+	
 
-	level = new Level(level_tileset, character_tileset, testtiles);
+	level = new Level(level_tileset, character_tileset, level_tiles);
 
 	return success;
 }

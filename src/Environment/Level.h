@@ -14,10 +14,13 @@ class Level
 public:
 	enum Tile
 	{
-		Empty,
-		Floor,
-		Wall,
-		Spawn
+		EMPTY,
+		FLOOR_DEFAULT,
+		FLOOR_LIGHT,
+		WALL,
+		PLAYER_SPAWN,
+		PLAYER_CHECKPOINT,
+		ENEMY_SPAWN
 	};
 
 private:
@@ -30,6 +33,7 @@ private:
 	std::array<std::array<Tile, 100>, 100> tiles; // TODO: Change to dynamic memory to cut down on stack size (?)
 	std::array<std::array<bool, 100>, 100> collision_map;
 	const int tile_size = 16;
+	sf::Vector2f checkpoint_position;
 
 	Player* player = nullptr;
 	std::vector<Enemy> enemies;

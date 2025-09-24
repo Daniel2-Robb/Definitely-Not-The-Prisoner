@@ -10,8 +10,10 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 	// Initialize all tiles to Empty
 	for (auto& row : tiles)
 	{
-		row.fill(Empty);
+		row.fill(Tile::EMPTY);
 	}
+	tiles[0][0] = Tile::PLAYER_SPAWN;
+
 	// Set up the tile sprite
 	tile_sprite.setTexture(this->tileset);
 	tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
@@ -21,9 +23,11 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 		for (int j = 0; j < tiles[0].size(); j++)
 		{
 			Tile tile = tiles[i][j];
-			collision_map[i][j] = tile == Tile::Wall;
+			collision_map[i][j] = tile == Tile::WALL;
 		}
 	}
+
+	checkpoint_position = sf::Vector2f(0, 0);
 
 	player = new Player(this->character_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
@@ -37,18 +41,26 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 	tile_sprite.setTexture(this->tileset);
 	tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
+	// Making collision_map
 	for (int i = 0; i < tiles.size(); i++)
 	{
 		for (int j = 0; j < tiles[0].size(); j++)
 		{
 			Tile tile = tiles[i][j];
-			collision_map[i][j] = tile == Tile::Wall;
+			collision_map[i][j] = (tile == Tile::WALL);
+
+			// Finding player start position
+			if (tile == Tile::PLAYER_SPAWN)
+			{
+				checkpoint_position.x = j * tile_size;
+				checkpoint_position.y = i * tile_size;
+			}
 		}
 	}
 
 	player = new Player(this->character_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
-	player->setCollider(sf::FloatRect(0, 0, 16, 16));
+	player->setCollider(sf::FloatRect(checkpoint_position.x, checkpoint_position.y, 16, 16));
 }
 
 Level::~Level()
@@ -116,13 +128,14 @@ void Level::render(sf::RenderWindow& window)
 		{
 			tile_sprite.setPosition(x * tile_size, y * tile_size);
 
+			// TODO: Add texturerect for other tile types
 			switch (tiles[y][x])
 			{
-			case Tile::Floor:
+			case Tile::FLOOR_DEFAULT:
 				tile_sprite.setTextureRect(sf::IntRect(48, 16, 16, 16));
 				break;
 
-			case Tile::Wall:
+			case Tile::WALL:
 				tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 				break;
 

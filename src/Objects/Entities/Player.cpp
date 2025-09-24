@@ -53,3 +53,8 @@ void Player::playerInput(Player::Input input)
 		break;
 	}
 }
+
+void Player::aiming(float mouseX, float mouseY)
+{
+	
+}

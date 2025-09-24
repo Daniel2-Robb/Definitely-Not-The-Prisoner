@@ -37,8 +37,30 @@ bool Game::init()
 		row.fill(Level::Tile::EMPTY);
 	}
 	std::array<std::array<Level::Tile, 15>, 15> temp_tiles;
-	// TODO: make temp_tiles for temp level for testing etc etc
-	
+	// Making temp_tiles for temp level for testing etc etc
+	for (auto& row : temp_tiles)
+	{
+		row.fill(Level::Tile::FLOOR_DEFAULT);
+	}
+	for (int i = 0; i < 15; i++)
+	{
+		temp_tiles[0][i] = Level::Tile::WALL;
+		temp_tiles[14][i] = Level::Tile::WALL;
+		temp_tiles[i][0] = Level::Tile::WALL;
+		temp_tiles[i][14] = Level::Tile::WALL;
+	}
+	temp_tiles[5] = { Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::WALL };
+	temp_tiles[2][2] = Level::Tile::PLAYER_SPAWN;
+	temp_tiles[7][2] = Level::Tile::PLAYER_CHECKPOINT;
+	temp_tiles[7][7] = Level::Tile::ENEMY_SPAWN;
+
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 15; j++)
+		{
+			level_tiles[i][j] = temp_tiles[i][j];
+		}
+	}
 
 	level = new Level(level_tileset, character_tileset, level_tiles);
 

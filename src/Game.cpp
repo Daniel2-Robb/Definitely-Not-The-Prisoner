@@ -48,6 +48,7 @@ bool Game::init()
 void Game::update(float dt)
 {
 	level->update(dt);
+	level->getPlayer().aiming(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 }
 
 void Game::render()

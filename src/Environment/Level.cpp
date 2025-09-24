@@ -1,6 +1,9 @@
 
 #include "Level.h"
 
+// NOTE: Remove before commit
+#include <iostream>
+
 Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 	: tileset(tileset), character_tileset(entity_tileset)
 {
@@ -24,6 +27,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 
 	player = new Player(this->character_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
+	player->setCollider(sf::FloatRect(0, 0, 16, 16));
 }
 
 Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<std::array<Tile, 100>, 100> tiles)
@@ -44,6 +48,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 
 	player = new Player(this->character_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
+	player->setCollider(sf::FloatRect(0, 0, 16, 16));
 }
 
 Level::~Level()
@@ -66,12 +71,15 @@ bool Level::collisionCheck(Entity& entity)
 	downright += sf::Vector2i(1, 1);
 
 	// Check all intersecting tiles for collidable types
-	for (int i = topleft.y; i <= downright.y && i < 100 && i > 0; i++)
+	for (int i = topleft.y; i < downright.y && i < 100 && i > 0; i++)
 	{
-		for (int j = topleft.x; j <= downright.x && j < 100 && j > 0; j++)
+		for (int j = topleft.x; j < downright.x && j < 100 && j > 0; j++)
 		{
 			if (collision_map[i][j])
 			{
+				// NOTE: Remove before commit
+				std::cout << j * tile_size << ":" << i * tile_size << std::endl;
+
 				entity.collisonResolve(sf::FloatRect(j * tile_size, i * tile_size, tile_size, tile_size));
 
 				return true;

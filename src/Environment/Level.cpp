@@ -66,9 +66,10 @@ bool Level::collisionCheck(Entity& entity)
 	topleft.y /= tile_size;
 
 	downright += sf::Vector2i(entity.getCollider().getSize().x, entity.getCollider().getSize().y);
+	downright.x += downright.x % tile_size == 0 ? 0 : tile_size;
+	downright.y += downright.y % tile_size == 0 ? 0 : tile_size;
 	downright.x /= tile_size;
 	downright.y /= tile_size;
-	downright += sf::Vector2i(1, 1);
 
 	// Check all intersecting tiles for collidable types
 	for (int i = topleft.y; i < downright.y && i < 100 && i > 0; i++)

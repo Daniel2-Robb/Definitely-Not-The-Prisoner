@@ -56,5 +56,6 @@ void Player::playerInput(Player::Input input)
 
 void Player::aiming(float mouseX, float mouseY)
 {
-	
+	float vec_x = mouseX - (collider.getPosition().x + 0.5 * collider.getSize().x);
+	float vec_y = mouseY - (collider.getPosition().y + 0.5 * collider.getSize().y);
 }

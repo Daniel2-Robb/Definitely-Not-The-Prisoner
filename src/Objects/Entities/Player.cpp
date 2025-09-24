@@ -63,5 +63,5 @@ void Player::aiming(float mouseX, float mouseY)
 
 	float rotation_angle = sinf(vec_x / hypotinuse);
 
-	//collider.rotate(sf::degrees(rotation_angle))
+	//sprite.rotate(sf::degrees(rotation_angle));
 }

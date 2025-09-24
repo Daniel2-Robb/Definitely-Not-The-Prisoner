@@ -8,11 +8,12 @@ class GameObject
 {
 private:
 	// Rendering/Graphics
-	sf::Sprite sprite;
+	//sf::Sprite sprite;
 
 protected:
 	// Object data
 	sf::FloatRect collider;
+	sf::Sprite sprite;
 
 public:
 	GameObject(sf::Texture& texture);

@@ -58,4 +58,10 @@ void Player::aiming(float mouseX, float mouseY)
 {
 	float vec_x = mouseX - (collider.getPosition().x + 0.5 * collider.getSize().x);
 	float vec_y = mouseY - (collider.getPosition().y + 0.5 * collider.getSize().y);
+	
+	float hypotinuse = sqrt((mouseX * mouseX) + (mouseY * mouseY));
+
+	float rotation_angle = sinf(vec_x / hypotinuse);
+
+	//collider.rotate(sf::degrees(rotation_angle))
 }

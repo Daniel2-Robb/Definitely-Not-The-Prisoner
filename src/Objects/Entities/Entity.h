@@ -3,6 +3,7 @@
 #define _NOTTHEPRISONER_ENTITY_H_
 
 #include "../GameObject.h"
+#include <iostream>
 
 class Entity : public GameObject
 {

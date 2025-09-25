@@ -66,11 +66,13 @@ bool Game::init()
 		temp_tiles[i][0] = Level::Tile::WALL;
 		temp_tiles[i][29] = Level::Tile::WALL;
 	}
+	
+	//x < 2 || x > 4
 
 	// Horizontal corridors
 	for (int x = 1; x < 30; x++)
 	{
-		if (x != 6 && x != 23)
+		if (x < 2 )
 			temp_tiles[8][x] = Level::Tile::WALL;
 
 		if (x != 15)
@@ -78,6 +80,15 @@ bool Game::init()
 
 		if (x != 10 && x != 20)
 			temp_tiles[22][x] = Level::Tile::WALL;
+	}
+
+	for (int y = 1; y < 29; y++)
+	{
+		if (y > 12 && y < 18)
+			temp_tiles[y][6] = Level::Tile::WALL;
+
+		if (y != 10 && y != 20)
+			temp_tiles[y][20] = Level::Tile::WALL;
 	}
 
 	temp_tiles[2][2] = Level::Tile::PLAYER_SPAWN;

@@ -98,8 +98,10 @@ bool Game::init()
 	level = new Level(level_tileset, character_tileset, level_tiles);
 	cutscene = new Cutscene();
 	menu = new Menu();
+	end  = new End();
 	cutscene->cutsceneInit();
 	menu->menuInit(window);
+	end->endInit(window);
 
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
 

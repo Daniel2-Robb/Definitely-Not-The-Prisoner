@@ -70,8 +70,18 @@ bool Game::init()
 
 void Game::update(float dt)
 {
-	level->update(dt);
-	level->getPlayer().aiming();
+	switch (state)
+	{
+	case MENU:
+		break;
+	case CUTSCENE:
+		break;
+	case GAMEPLAY:
+		level->update(dt);
+		level->getPlayer().aiming();
+		break;
+
+	}
 }
 
 void Game::render()

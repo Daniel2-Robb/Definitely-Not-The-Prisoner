@@ -29,52 +29,64 @@ void Cutscene::cutsceneInit()
 	number_2_text.setCharacterSize(25);
 	number_2_text.setFillColor(sf::Color(0, 0, 0, 255));
 	number_2_text.setPosition(1030 - number_2_text.getGlobalBounds().width, 150 + player_text.getGlobalBounds().height);
+
+	
 }
 
 void Cutscene::cutscenePlay(sf::RenderWindow& window)
 {
 	window.clear(sf::Color::Cyan);
 
-	timer.restart();
-
+	//timer.restart();
+	time = timer.getElapsedTime();
 	
-
-	std::cout << "Cutscene started \n";
-	player_life++;
+	std::cout << std::to_string(time.asSeconds()) << "\n";
+	//player_life++;
 	window.draw(number_2_text);
-	//sleep argument is given in milliseconds
-	Sleep(3000);
-	window.draw(player_text);
-	Sleep(3000);
 
-	number_2_text.setString("");
-	player_text.setString("");
-	window.draw(number_2_text);
-	window.draw(player_text);
+	if (time.asSeconds() == 3)
+	{
+		window.draw(player_text);
+	}
+	else if (time.asSeconds() == 6)
+	{
+		number_2_text.setString("");
+		player_text.setString("");
+		window.draw(number_2_text);
+		window.draw(player_text);
 
-	number_2_text.setString("The New Number 2.");
-	player_text.setString("Who is Number 1?");
-	window.draw(number_2_text);
-	Sleep(3000);
-	window.draw(player_text);
-	Sleep(3000);
+		number_2_text.setString("The New Number 2.");
+		player_text.setString("Who is Number 1?");
+		window.draw(number_2_text);
+	}
+	else if (time.asSeconds() == 9)
+	{
+		window.draw(player_text);
+	}
+	else if (time.asSeconds() == 12)
+	{
+		number_2_text.setString("");
+		player_text.setString("");
+		window.draw(number_2_text);
+		window.draw(player_text);
 
-	number_2_text.setString("");
-	player_text.setString("");
-	window.draw(number_2_text);
-	window.draw(player_text);
+		number_2_text.setString("You are number " + std::to_string(player_life) + ".");
+		player_text.setString("I am not a number, I am a free man.");
+		window.draw(number_2_text);
+	}
+	else if (time.asSeconds() == 15)
+	{
+		window.draw(player_text);
+	}
+	else if (time.asSeconds() == 18)
+	{
 
-	number_2_text.setString("You are number " + std::to_string(player_life) + ".");
-	player_text.setString("I am not a number, I am a free man.");
-	window.draw(number_2_text);
-	Sleep(3000);
-	window.draw(player_text);
-	Sleep(3000);
+		number_2_text.setString("");
+		player_text.setString("");
+		window.draw(number_2_text);
+		window.draw(player_text);
 
-	number_2_text.setString("");
-	player_text.setString("");
-	window.draw(number_2_text);
-	window.draw(player_text);
-
-	std::cout << "Cutscene ended \n";
+		std::cout << "Cutscene ended \n";
+	}
+	
 }

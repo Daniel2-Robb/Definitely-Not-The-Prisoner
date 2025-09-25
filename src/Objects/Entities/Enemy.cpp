@@ -118,4 +118,7 @@ void Enemy::update(float dt, const sf::Vector2f& playerPos, Level& level)
 
     // --- Apply movement ---
     Entity::update(dt);
+
+    // Apply rotation
+    rotationTarget(collider.getPosition() + velocity);
 }

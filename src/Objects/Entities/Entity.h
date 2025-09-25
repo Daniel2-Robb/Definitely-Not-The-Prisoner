@@ -17,7 +17,8 @@ public:
 
 	virtual void update(float dt); // NOTE: Maybe change this to not virtual? (depending on if it's needed or not)
 	void collisonResolve(sf::FloatRect rect);
-	void rotationTarget(sf::Vector2i target_pos, sf::Vector2f relative_pos);
+	void rotationTarget(sf::Vector2f target_pos);
+	void rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos);
 
 	sf::Vector2f getVelocity();
 	float getRotation();

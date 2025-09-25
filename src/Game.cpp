@@ -93,7 +93,7 @@ void Game::render()
 		break;
 
 	case CUTSCENE:
-
+		Cutscene.cutscenePlay();
 		break;
 
 	case GAMEPLAY:

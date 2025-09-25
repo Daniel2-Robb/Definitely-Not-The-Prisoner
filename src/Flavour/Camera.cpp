@@ -1,15 +1,18 @@
 
 #include "Camera.h"
 
-Camera::Camera(sf::Vector2f size)
+Camera::Camera(sf::RenderWindow& window) : window(window)
 {
-	view.setSize(size);
-	view.setCenter(size.x / 2, size.y / 2);
+	view.setSize(sf::Vector2f(window.getSize()));
+	view.setCenter(window.getSize().x / 2, window.getSize().y / 2);
 }
 
 
 void Camera::update(sf::Vector2f target_pos, float dt)
 {
+	// Set size to account for window resizing
+	view.setSize(sf::Vector2f(window.getSize()));
+
 	sf::Vector2f new_pos = view.getCenter();
 	// TODO: Increase speed with distance from player?
 	sf::Vector2f difference = (target_pos - view.getCenter()) * speed;

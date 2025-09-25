@@ -1,0 +1,14 @@
+Things to get this playable (basics):
+- Weapon(s) - SB
+- Enemy and Player death mechanics - SB
+- Win scenario
+
+Things to get this presentable (basic polish):
+- Finish intro and ending cutscenes
+- Basic pause menu
+- Sound effects
+- Updated textures
+- UI polish
+
+Things to get this appealing (actual mechanics):
+- Corpse functionality stuff

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow& window) 
-	: window(window), camera(sf::Vector2f(window.getSize().x, window.getSize().y))
+	: window(window), camera(window)
 {
 
 }
@@ -73,7 +73,7 @@ bool Game::init()
 	// Horizontal corridors
 	for (int x = 1; x < 30; x++)
 	{
-		if (x < 2 )
+		if (x < 2)
 			temp_tiles[8][x] = Level::Tile::WALL;
 
 		if (x != 15)
@@ -92,6 +92,7 @@ bool Game::init()
 			temp_tiles[y][20] = Level::Tile::WALL;
 	}
 
+	// Add spawns and checkpoints
 	temp_tiles[2][2] = Level::Tile::PLAYER_SPAWN;
 	temp_tiles[7][2] = Level::Tile::PLAYER_CHECKPOINT;
 	temp_tiles[10][10] = Level::Tile::ENEMY_SPAWN;
@@ -130,7 +131,6 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
-		level->getPlayer().getSprite().setRotation(90);
 
 		if (level->enemy_count == 0)
 		{
@@ -145,12 +145,12 @@ void Game::update(float dt)
 		std::sprintf(buffer, "%02d:%02d", minutes, seconds);
 		timerText.setString(buffer);
 
-		camera.update(level->getPlayer().getCollider().getPosition(), dt);
+		camera.update(level->getPlayer().getSprite().getPosition(), dt);
 
 		// Calculate parameter values for player aiming
 		sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition() - window.getPosition());
 		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
-		relative_position += level->getPlayer().getCollider().getPosition() - camera.getView().getCenter();
+		relative_position += level->getPlayer().getSprite().getPosition() - camera.getView().getCenter();
 		level->getPlayer().rotationTarget(mouse_position, relative_position);
 		break;
 

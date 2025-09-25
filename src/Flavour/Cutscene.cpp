@@ -14,21 +14,25 @@ Cutscene::~Cutscene()
 
 void Cutscene::setup()
 {
+	std::cout << "Cutscene prepared \n";
 	player_text.setString("Who are you?");
 	player_text.setFont(font);
 	player_text.setCharacterSize(25);
-	player_text.setFillColor(sf::Color(255, 255, 255, 255));
+	player_text.setFillColor(sf::Color(0, 0, 0, 255));
 	player_text.setPosition(50, 100);
 
 	number_2_text.setString("Good evening.");
 	number_2_text.setFont(font);
 	number_2_text.setCharacterSize(25);
-	number_2_text.setFillColor(sf::Color(255, 255, 255, 255));
+	number_2_text.setFillColor(sf::Color(0, 0, 0, 255));
 	number_2_text.setPosition(1030 - number_2_text.getGlobalBounds().width, 150 + player_text.getGlobalBounds().height);
 }
 
 void Cutscene::cutscenePlay(sf::RenderWindow& window)
 {
+	window.clear(sf::Color::Cyan);
+
+	std::cout << "Cutscene started \n";
 	player_life++;
 	window.draw(number_2_text);
 	//sleep argument is given in milliseconds
@@ -65,5 +69,5 @@ void Cutscene::cutscenePlay(sf::RenderWindow& window)
 	window.draw(number_2_text);
 	window.draw(player_text);
 
-
+	std::cout << "Cutscene ended \n";
 }

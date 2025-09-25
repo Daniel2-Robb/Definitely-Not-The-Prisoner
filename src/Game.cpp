@@ -20,7 +20,7 @@ bool Game::init()
 	bool success = true;
 
 	// NOTE: Remove after testing
-	state = END;
+	state = MENU;
 
 	if (!font.loadFromFile("../content/Fonts/OpenSans-Bold.ttf")) // Replace with a valid font path
 	{

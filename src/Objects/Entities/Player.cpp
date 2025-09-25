@@ -57,12 +57,12 @@ void Player::playerInput(Player::Input input)
 	}
 }
 
-void Player::aiming(sf::Vector2i mousepos)
+void Player::aiming(sf::Vector2i mousepos, sf::Vector2f relative_pos)
 {
 	// TODO: Modify to get position relative to player location on screen and not absolute level location
 
-	float vec_x = mousepos.x - (collider.getPosition().x + (0.5 * collider.getSize().x));
-	float vec_y = mousepos.y - (collider.getPosition().y + (0.5 * collider.getSize().y));
+	float vec_x = mousepos.x - (relative_pos.x + (0.5 * collider.getSize().x));
+	float vec_y = mousepos.y - (relative_pos.y + (0.5 * collider.getSize().y));
 
 	// Calculate player angle based on player and mouse positions
 	float rotation_angle = 0.f;

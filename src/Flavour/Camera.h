@@ -18,6 +18,7 @@ public:
 
 	sf::View& getView();
 	void setSpeed(float speed);
+	void setCentre(sf::Vector2f position);
 };
 
 #endif // _NOTTHEPRISONER_CAMERA_H_s

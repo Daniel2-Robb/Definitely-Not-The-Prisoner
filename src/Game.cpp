@@ -9,7 +9,9 @@ Game::Game(sf::RenderWindow& window)
 
 Game::~Game()
 {
-
+	delete level;
+	delete menu;
+	delete cutscene;
 }
 
 
@@ -69,6 +71,9 @@ bool Game::init()
 	menu = new Menu();
 	cutscene->cutsceneInit();
 	menu->menuInit(window);
+
+	camera.setCentre(level->getPlayer().getCollider().getPosition());
+
 	return success;
 }
 
@@ -79,15 +84,15 @@ void Game::update(float dt)
 	case MENU:
 		break;
 	case CUTSCENE:
-		cutscene->cutscenePlay(window);
-		state = GAMEPLAY;
 		break;
 	case GAMEPLAY:
 		level->update(dt);
 		camera.update(level->getPlayer().getCollider().getPosition(), dt);
 
 		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
-		level->getPlayer().aiming(mouse_position);
+		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
+		relative_position += level->getPlayer().getCollider().getPosition() - camera.getView().getCenter();
+		level->getPlayer().aiming(mouse_position, relative_position);
 		break;
 
 	}
@@ -104,7 +109,8 @@ void Game::render()
 		break;
 
 	case CUTSCENE:
-		//Cutscene.cutscenePlay();
+		//cutscene->cutscenePlay(window); // TODO: FIX THIS!!!
+		state = GAMEPLAY;
 		break;
 
 	case GAMEPLAY:
@@ -121,6 +127,10 @@ void Game::keyboardInput(const sf::Event& event)
 	bool keydown = (event.type == sf::Event::KeyPressed);
 
 	// TODO: Player input handling (remember to account for menus+cutscenes!)
+	if (event.key.code == sf::Keyboard::Escape)
+	{
+		window.close();
+	}
 
 	switch (state)
 	{
@@ -134,18 +144,11 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case CUTSCENE:
 		//In-cutscene inputs
-		if (event.key.code == sf::Keyboard::Escape)
-		{
-			window.close();
-		}
+		
 
 		break;
 
 	case GAMEPLAY:
-		if (event.key.code == sf::Keyboard::Escape)
-		{
-			window.close();
-		}
 		//In-game inputs
 
 		switch (event.key.scancode)

@@ -37,3 +37,8 @@ void Camera::setSpeed(float speed)
 {
 	this->speed = speed;
 }
+
+void Camera::setCentre(sf::Vector2f position)
+{
+	view.setCenter(position);
+}

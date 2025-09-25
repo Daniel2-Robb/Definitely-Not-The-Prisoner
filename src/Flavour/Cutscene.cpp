@@ -3,7 +3,10 @@
 Cutscene::Cutscene()
 {
 	player_life = 2;
-	font.loadFromFile(("../content/Fonts/OpenSans-Bold.ttf"));
+	if (!font.loadFromFile(("../content/Fonts/OpenSans-Bold.ttf")))
+	{
+		std::cout << "font failed to load" << std::endl;
+	}
 
 }
 

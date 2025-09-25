@@ -54,14 +54,33 @@ void Player::playerInput(Player::Input input)
 	}
 }
 
-void Player::aiming(float mouseX, float mouseY)
+void Player::aiming()
 {
-	float vec_x = mouseX - (collider.getPosition().x + 0.5 * collider.getSize().x);
-	float vec_y = mouseY - (collider.getPosition().y + 0.5 * collider.getSize().y);
+	float mouseX = sf::Mouse::getPosition().x;
+	float mouseY = sf::Mouse::getPosition().y;
+	vec_x = mouseX - (collider.getPosition().x + (0.5 * collider.getSize().x));
+	vec_y = mouseY - (collider.getPosition().y + (0.5 * collider.getSize().y));
+
+	std::cout << mouseX << ":" << mouseY << std::endl;
+
+	rotation_angle = atan(vec_x / vec_y);
+
+	sprite.setOrigin(0 + (0.5 * sprite.getGlobalBounds().width), 0 + (0.5 * sprite.getGlobalBounds().height));
 	
-	float hypotinuse = sqrt((mouseX * mouseX) + (mouseY * mouseY));
+	if (vec_x >= 0 && vec_y >= 0)
+	{
+		rotation_angle += 3.14159 * 0.5;
+	}
+	if (vec_x >= 0 && vec_y < 0)
+	{
+		rotation_angle += 3.14159;
+	}
+	if (vec_x < 0 && vec_y < 0)
+	{
+		rotation_angle += 3.14159 * 1.5;
+	}
 
-	float rotation_angle = sinf(vec_x / hypotinuse);
+	sprite.setRotation(rotation_angle);
 
-	//sprite.rotate(sf::degrees(rotation_angle));
+	sprite.setOrigin(0, 0);
 }

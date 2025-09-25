@@ -66,7 +66,7 @@ bool Game::init()
 	level = new Level(level_tileset, character_tileset, level_tiles);
 	cutscene = new Cutscene();
 	menu = new Menu();
-	cutscene->setup();
+	cutscene->cutsceneInit();
 	menu->menuInit(window);
 	return success;
 }

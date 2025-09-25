@@ -12,7 +12,7 @@ Cutscene::~Cutscene()
 
 }
 
-void Cutscene::setup()
+void Cutscene::cutsceneInit()
 {
 	std::cout << "Cutscene prepared \n";
 	player_text.setString("Who are you?");

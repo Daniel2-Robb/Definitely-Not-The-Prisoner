@@ -89,7 +89,12 @@ void Entity::collisonResolve(sf::FloatRect rect)
     }
 }
 
-void Entity::rotationTarget(sf::Vector2i target_pos, sf::Vector2f relative_pos)
+void Entity::rotationTarget(sf::Vector2f target_pos)
+{
+    rotationTarget(target_pos, collider.getPosition());
+}
+
+void Entity::rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos)
 {
     // TODO: Modify to get position relative to player location on screen and not absolute level location
 

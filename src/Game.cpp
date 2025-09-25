@@ -118,7 +118,7 @@ void Game::update(float dt)
 		camera.update(level->getPlayer().getCollider().getPosition(), dt);
 
 		// Calculate parameter values for player aiming
-		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
+		sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition() - window.getPosition());
 		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
 		relative_position += level->getPlayer().getCollider().getPosition() - camera.getView().getCenter();
 		level->getPlayer().rotationTarget(mouse_position, relative_position);

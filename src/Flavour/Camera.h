@@ -7,12 +7,13 @@
 class Camera
 {
 private:
+	sf::RenderWindow& window;
 	sf::View view;
 	float speed = 2.f;
 	float minvalue = 1.f;
 
 public:
-	Camera(sf::Vector2f size);
+	Camera(sf::RenderWindow& window);
 
 	void update(sf::Vector2f position, float dt);
 

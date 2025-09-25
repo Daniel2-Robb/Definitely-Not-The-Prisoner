@@ -132,10 +132,10 @@ void Game::update(float dt)
 		level->update(dt);
 		level->getPlayer().getSprite().setRotation(90);
 
-		/*if all enemies dead
-		* {
-		*	state = END;
-		* }*/
+		if (level->enemy_count == 0)
+		{
+			state = END;
+		}
 
 		// Temporary timer for testing
 		elapsedTime += dt;

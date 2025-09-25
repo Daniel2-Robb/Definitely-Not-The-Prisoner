@@ -96,11 +96,11 @@ void Game::render()
 		break;
 
 	case CUTSCENE:
-		Cutscene.cutscenePlay();
+		Cutscene.cutscenePlay(sf::RenderWindow& window);
 		break;
 
 	case GAMEPLAY:
-		
+		level->render(window);
 		break;
 
 	}*/

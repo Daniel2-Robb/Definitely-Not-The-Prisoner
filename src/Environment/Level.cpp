@@ -120,6 +120,7 @@ void Level::update(float dt)
 	// Entity collision checking
 	// TODO: Check for generic Entity collisions
 	for (Enemy* enemy : enemies)
+	// TODO: Check for generic Entity & GameObject collisions
 	{
 		enemy->update(dt, player->getSprite().getPosition(), *this);
 		collisionCheck(*enemy);

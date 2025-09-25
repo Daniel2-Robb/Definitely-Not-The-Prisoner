@@ -37,6 +37,7 @@ private:
 	
 	const int tile_size = 16;
 	sf::Vector2f checkpoint_position;
+	// TODO: Change player checkpoints/spawn from Tile type to GameObject list
 
 	Player* player = nullptr;
 	

@@ -98,17 +98,18 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
-		level->getPlayer().aiming();
 
+		// Temporary timer for testing
 		elapsedTime += dt;
-
 		int minutes = static_cast<int>(elapsedTime) / 60;
 		int seconds = static_cast<int>(elapsedTime) % 60;
 		char buffer[16];
 		std::sprintf(buffer, "%02d:%02d", minutes, seconds);
 		timerText.setString(buffer);
+
 		camera.update(level->getPlayer().getCollider().getPosition(), dt);
 
+		// Calculate parameter values for player aiming
 		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
 		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
 		relative_position += level->getPlayer().getCollider().getPosition() - camera.getView().getCenter();
@@ -138,13 +139,9 @@ void Game::render()
 		window.setView(camera.getView());
 		break;
 
-	}*/
-
-	// TODO: Move to within switch statement?
-	level->render(window);
+	}
 
 	window.draw(timerText);
-	}
 }
 
 

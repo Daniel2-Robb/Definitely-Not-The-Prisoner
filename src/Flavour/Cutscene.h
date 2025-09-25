@@ -22,6 +22,8 @@ public:
 	sf::Text player_text;
 	sf::Text number_2_text;
 	sf::Font font;
+	sf::Clock timer;
+	sf::Time time;
 };
 
 #endif // _NOTTHEPRISONER_CUTSCENE_HPP_

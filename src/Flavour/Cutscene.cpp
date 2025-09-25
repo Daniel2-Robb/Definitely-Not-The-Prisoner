@@ -35,6 +35,10 @@ void Cutscene::cutscenePlay(sf::RenderWindow& window)
 {
 	window.clear(sf::Color::Cyan);
 
+	timer.restart();
+
+	
+
 	std::cout << "Cutscene started \n";
 	player_life++;
 	window.draw(number_2_text);

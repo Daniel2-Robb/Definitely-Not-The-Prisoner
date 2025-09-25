@@ -38,7 +38,7 @@ set(SOURCE_FILES
     
     "src/Environment/Level.h" 
     "src/Environment/Level.cpp" )
-add_executable(NotThePrisoner ${SOURCE_FILES} "src/Flavour/Menu.h" "src/Flavour/Menu.cpp")
+add_executable(NotThePrisoner ${SOURCE_FILES} "src/Flavour/Menu.h" "src/Flavour/Menu.cpp"   "src/Flavour/End.h" "src/Flavour/End.cpp")
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)

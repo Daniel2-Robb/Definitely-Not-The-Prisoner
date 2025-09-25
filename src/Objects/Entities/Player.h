@@ -9,8 +9,6 @@ class Player : public Entity
 private:
 	// TODO: Add held item/weapon when implemented?
 
-	float rotation = 0;
-
 
 public:
 	// All types of player input
@@ -34,7 +32,6 @@ public:
 	Player(sf::Texture& texture);
 	
 	void playerInput(Input input);
-	void aiming(sf::Vector2i mousepos, sf::Vector2f relative_pos);
 };
 
 #endif // _NOTTHEPRISONER_PLAYER_H_

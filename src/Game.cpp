@@ -150,7 +150,7 @@ void Game::update(float dt)
 		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
 		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
 		relative_position += level->getPlayer().getCollider().getPosition() - camera.getView().getCenter();
-		level->getPlayer().aiming(mouse_position, relative_position);
+		level->getPlayer().rotationTarget(mouse_position, relative_position);
 		break;
 
 	}

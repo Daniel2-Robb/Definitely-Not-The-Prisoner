@@ -22,6 +22,17 @@ bool Game::init()
 	// NOTE: Remove after testing
 	state = MENU;
 
+	if (!font.loadFromFile("../content/Fonts/OpenSans-Bold.ttf")) // Replace with a valid font path
+	{
+		std::cout << "Failed to load font" << std::endl;
+		success = false;
+	}
+
+	timerText.setFont(font);
+	timerText.setCharacterSize(20);
+	timerText.setFillColor(sf::Color::White);
+	timerText.setPosition(10.f, 10.f); // Top-left of screen
+
 	if (!level_tileset.loadFromFile("../content/LevelTilemap.png"))
 	{
 		std::cout << "LevelTilemap.png failed to load" << std::endl;
@@ -87,6 +98,15 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
+		level->getPlayer().aiming();
+
+		elapsedTime += dt;
+
+		int minutes = static_cast<int>(elapsedTime) / 60;
+		int seconds = static_cast<int>(elapsedTime) % 60;
+		char buffer[16];
+		std::sprintf(buffer, "%02d:%02d", minutes, seconds);
+		timerText.setString(buffer);
 		camera.update(level->getPlayer().getCollider().getPosition(), dt);
 
 		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
@@ -118,6 +138,12 @@ void Game::render()
 		window.setView(camera.getView());
 		break;
 
+	}*/
+
+	// TODO: Move to within switch statement?
+	level->render(window);
+
+	window.draw(timerText);
 	}
 }
 

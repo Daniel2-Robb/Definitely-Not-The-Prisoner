@@ -32,6 +32,11 @@ private:
 		CUTSCENE,
 		GAMEPLAY
 	} state = MENU;
+	sf::Font font;
+	sf::Text timerText;
+	float elapsedTime = 0.f;
+
+	float remainingTime = 300.f;
 
 public:
 	Game(sf::RenderWindow& window);

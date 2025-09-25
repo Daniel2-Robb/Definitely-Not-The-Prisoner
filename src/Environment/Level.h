@@ -43,6 +43,9 @@ private:
 	// Private methods
 	bool collisionCheck(Entity& entity);
 
+	std::vector<std::vector<bool>> walkableGrid;
+
+
 public:
 	Level(sf::Texture& tileset, sf::Texture& entity_tileset);
 	Level(sf::Texture& tileset, sf::Texture& entity_tileset, std::array<std::array<Tile, 100>, 100> tiles);

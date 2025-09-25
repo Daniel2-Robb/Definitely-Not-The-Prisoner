@@ -37,7 +37,7 @@ public:
 	Player(sf::Texture& texture);
 	
 	void playerInput(Input input);
-	void aiming();
+	void aiming(sf::Vector2i mousepos);
 };
 
 #endif // _NOTTHEPRISONER_PLAYER_H_

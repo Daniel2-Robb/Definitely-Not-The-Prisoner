@@ -21,6 +21,8 @@ set(SOURCE_FILES
 
     "src/Flavour/Cutscene.h" 
     "src/Flavour/Cutscene.cpp" 
+    src/Flavour/Camera.h 
+    src/Flavour/Camera.cpp
 
     src/Objects/GameObject.h 
     src/Objects/GameObject.cpp 

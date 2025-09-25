@@ -96,7 +96,7 @@ void Player::aiming(sf::Vector2i mousepos)
 	// Convert from radians to degrees for setRotation method
 	rotation_angle = 360 * (rotation_angle / 6.28318);
 
-	sprite.setRotation(rotation_angle);
+	sprite.setRotation(rotation_angle + 180);
 
 	// Reset player origin point to keep other transformations working
 	//sprite.setOrigin(0, 0);

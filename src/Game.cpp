@@ -1,9 +1,10 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow& window) : window(window)
+Game::Game(sf::RenderWindow& window) 
+	: window(window), camera(sf::Vector2f(window.getSize().x, window.getSize().y))
 {
-	
+
 }
 
 Game::~Game()
@@ -78,9 +79,9 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
+		camera.update(level->getPlayer().getCollider().getPosition(), dt);
 
-		sf::Vector2i mouse_position = sf::Mouse::getPosition();
-		mouse_position -= window.getPosition();
+		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
 		level->getPlayer().aiming(mouse_position);
 		break;
 
@@ -89,24 +90,22 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	/*switch (state)
+	switch (state)
 	{
 	case MENU:
 		
 		break;
 
 	case CUTSCENE:
-		Cutscene.cutscenePlay();
+		//Cutscene.cutscenePlay();
 		break;
 
 	case GAMEPLAY:
-		
+		level->render(window);
+		window.setView(camera.getView());
 		break;
 
-	}*/
-
-	// TODO: Move to within switch statement?
-	level->render(window);
+	}
 }
 
 

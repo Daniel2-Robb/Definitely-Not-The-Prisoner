@@ -14,7 +14,7 @@ protected:
 public:
 	Cutscene();
 	~Cutscene();
-	void setup();
+	void cutsceneInit();
 	void cutscenePlay(sf::RenderWindow& window);
 
 	int player_life = 2;

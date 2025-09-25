@@ -1,0 +1,21 @@
+#ifndef _NOTTHEPRISONER_CUTSCENE_H_
+#define _NOTTHEPRISONER_CUTSCENE_H_
+
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+class Cutscene
+{
+protected :
+
+
+public:
+	Cutscene();
+	~Cutscene();
+	void cutscenePlay();
+	int player_life = 2;
+	sf::Text player_text;
+	sf::Text number_2_text;
+};
+
+#endif // _NOTTHEPRISONER_CUTSCENE_HPP_

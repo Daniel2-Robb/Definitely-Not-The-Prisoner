@@ -7,7 +7,7 @@
 
 #include "Environment/Level.h"
 #include "Flavour/Cutscene.h"
-//#include "Flavour/Menu.h"
+#include "Flavour/Menu.h"
 
 class Game
 {
@@ -20,6 +20,7 @@ private:
 	// Game data
 	Level* level = nullptr;
 	Cutscene* cutscene = nullptr;
+	Menu* menu = nullptr;
 
 	// Gamestate logic
 	enum GameState

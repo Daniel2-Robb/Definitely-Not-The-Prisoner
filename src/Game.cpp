@@ -17,7 +17,7 @@ bool Game::init()
 	bool success = true;
 
 	// NOTE: Remove after testing
-	state = CUTSCENE;
+	state = MENU;
 
 	if (!level_tileset.loadFromFile("../content/LevelTilemap.png"))
 	{
@@ -65,8 +65,9 @@ bool Game::init()
 
 	level = new Level(level_tileset, character_tileset, level_tiles);
 	cutscene = new Cutscene();
+	menu = new Menu();
 	cutscene->setup();
-
+	menu->menuInit(window);
 	return success;
 }
 
@@ -97,6 +98,8 @@ void Game::render()
 	{
 	case MENU:
 		
+		menu->menuRender(window);
+
 		break;
 
 	case CUTSCENE:
@@ -126,12 +129,16 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case MENU:
 		//In-menu inputs
-
+		state = CUTSCENE;
 
 		break;
 
 	case CUTSCENE:
 		//In-cutscene inputs
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
 
 		break;
 

@@ -14,7 +14,7 @@ Enemy::Enemy(sf::Texture& texture) : Entity(texture)
     float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.f * 3.14159265f;
     currentDirection = { std::cos(angle), std::sin(angle) };
     velocity = currentDirection * speed;
-    moveTimer = 2.f; // 2 seconds before changing direction
+    moveTimer = 1.f; // 2 seconds before changing direction
 }
 
 bool Enemy::canSeePlayer(const sf::Vector2f& playerPos, const std::vector<std::vector<bool>>& collisionMap)

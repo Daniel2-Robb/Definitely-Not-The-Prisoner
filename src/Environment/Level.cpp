@@ -109,7 +109,8 @@ void Level::update(float dt)
 	// Entity updating
 
 	// Entity collision checking
-	// TODO: Check for generic Entity collisions
+	// TODO: Check for generic Entity & GameObject collisions
+	// TODO: Check for collision between Entities
 	for (Enemy& enemy : enemies)
 	{
 		enemy.update(dt);

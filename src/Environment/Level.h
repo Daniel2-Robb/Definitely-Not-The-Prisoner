@@ -34,6 +34,7 @@ private:
 	std::array<std::array<bool, 100>, 100> collision_map;
 	const int tile_size = 16;
 	sf::Vector2f checkpoint_position;
+	// TODO: Change player checkpoints/spawn from Tile type to GameObject list
 
 	Player* player = nullptr;
 	std::vector<Enemy> enemies;

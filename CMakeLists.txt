@@ -21,6 +21,8 @@ set(SOURCE_FILES
 
     src/Objects/GameObject.h 
     src/Objects/GameObject.cpp 
+    src/Objects/Weapon.h 
+    src/Objects/Weapon.cpp 
 
     src/Objects/Entities/Entity.h 
     src/Objects/Entities/Entity.cpp 

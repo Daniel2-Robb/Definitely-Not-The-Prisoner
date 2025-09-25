@@ -49,7 +49,7 @@ public:
 	void update(float dt);
 	void render();
 
-	
+
 	// Player Input
 	void keyboardInput(const sf::Event& event);
 	void mouseInput(const sf::Event& event);

@@ -50,28 +50,46 @@ bool Game::init()
 	{
 		row.fill(Level::Tile::EMPTY);
 	}
-	std::array<std::array<Level::Tile, 15>, 15> temp_tiles;
+	std::array<std::array<Level::Tile, 30>, 30> temp_tiles;
 	// Making temp_tiles for temp level for testing etc etc
 	for (auto& row : temp_tiles)
 	{
 		row.fill(Level::Tile::FLOOR_DEFAULT);
 	}
-	for (int i = 0; i < 15; i++)
+	
+
+	// Fill from pattern
+	for (int i = 0; i < 30; i++)
 	{
 		temp_tiles[0][i] = Level::Tile::WALL;
-		temp_tiles[14][i] = Level::Tile::WALL;
+		temp_tiles[29][i] = Level::Tile::WALL;
 		temp_tiles[i][0] = Level::Tile::WALL;
-		temp_tiles[i][14] = Level::Tile::WALL;
+		temp_tiles[i][29] = Level::Tile::WALL;
 	}
-	temp_tiles[5] = { Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::WALL };
+
+	// Horizontal corridors
+	for (int x = 1; x < 30; x++)
+	{
+		if (x != 6 && x != 23)
+			temp_tiles[8][x] = Level::Tile::WALL;
+
+		if (x != 15)
+			temp_tiles[15][x] = Level::Tile::WALL;
+
+		if (x != 10 && x != 20)
+			temp_tiles[22][x] = Level::Tile::WALL;
+	}
+
 	temp_tiles[2][2] = Level::Tile::PLAYER_SPAWN;
 	temp_tiles[7][2] = Level::Tile::PLAYER_CHECKPOINT;
 	temp_tiles[10][10] = Level::Tile::ENEMY_SPAWN;
 	temp_tiles[3][12] = Level::Tile::ENEMY_SPAWN;
+	temp_tiles[9][15] = Level::Tile::ENEMY_SPAWN;
+	temp_tiles[25][15] = Level::Tile::ENEMY_SPAWN;
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 30; i++)
 	{
-		for (int j = 0; j < 15; j++)
+		for (int j = 0; j < 30; j++)
 		{
 			level_tiles[i][j] = temp_tiles[i][j];
 		}

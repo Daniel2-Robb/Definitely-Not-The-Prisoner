@@ -19,7 +19,7 @@ public:
 	GameObject(sf::Texture& texture);
 	~GameObject();
 
-	sf::Sprite& getSprite();
+	virtual sf::Sprite& getSprite();
 	sf::FloatRect getCollider();
 	void setCollider(sf::FloatRect collider);
 };

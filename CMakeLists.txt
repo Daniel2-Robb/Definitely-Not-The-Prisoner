@@ -19,6 +19,9 @@ set(SOURCE_FILES
     src/Game.h 
     src/Game.cpp
 
+    "src/Flavour/Cutscene.h" 
+    "src/Flavour/Cutscene.cpp" 
+
     src/Objects/GameObject.h 
     src/Objects/GameObject.cpp 
     src/Objects/Weapon.h 
@@ -33,7 +36,7 @@ set(SOURCE_FILES
     
     "src/Environment/Level.h" 
     "src/Environment/Level.cpp" )
-add_executable(NotThePrisoner ${SOURCE_FILES} "src/Objects/GameObject.h" "src/Objects/GameObject.cpp" "src/Flavour/Cutscene.h" "src/Flavour/Cutscene.cpp")
+add_executable(NotThePrisoner ${SOURCE_FILES})
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)

@@ -78,7 +78,10 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
-		level->getPlayer().aiming();
+
+		sf::Vector2i mouse_position = sf::Mouse::getPosition();
+		mouse_position -= window.getPosition();
+		level->getPlayer().aiming(mouse_position);
 		break;
 
 	}

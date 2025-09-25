@@ -9,17 +9,14 @@ class Player : public Entity
 private:
 	// TODO: Add held item/weapon when implemented?
 
-	float vec_x = 0;
-	float vec_y = 0;
-	float hypotinuse = 0;
-	float rotation_angle = 0;
+	float rotation = 0;
 
 
 public:
 	// All types of player input
 	enum Input
 	{
-		// TODO: Fill with all possible player actions#
+		// TODO: Fill with all possible player actions
 		IDLE,
 		START_MOVE_LEFT,
 		STOP_MOVE_LEFT,

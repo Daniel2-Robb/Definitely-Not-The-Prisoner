@@ -1,3 +1,4 @@
+
 #ifndef _NOTTHEPRISONER_CUTSCENE_H_
 #define _NOTTHEPRISONER_CUTSCENE_H_
 
@@ -7,14 +8,14 @@
 
 class Cutscene
 {
-protected :
+protected:
 
 
 public:
 	Cutscene();
 	~Cutscene();
 	void setup();
-	void cutscenePlay();
+	void cutscenePlay(sf::RenderWindow& window);
 
 	int player_life = 2;
 

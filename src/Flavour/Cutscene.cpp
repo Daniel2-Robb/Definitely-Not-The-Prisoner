@@ -27,7 +27,7 @@ void Cutscene::setup()
 	number_2_text.setPosition(1030 - number_2_text.getGlobalBounds().width, 150 + player_text.getGlobalBounds().height);
 }
 
-void Cutscene::cutscenePlay()
+void Cutscene::cutscenePlay(sf::RenderWindow& window)
 {
 	player_life++;
 	window.draw(number_2_text);

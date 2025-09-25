@@ -99,3 +99,13 @@ void Entity::setVelocity(sf::Vector2f velocity)
 {
 	this->velocity = velocity;
 }
+
+
+sf::Sprite& Entity::getSprite()
+{
+    sf::Vector2f temp(collider.getSize().x / 2, collider.getSize().y / 2);
+    sprite.setOrigin(temp);
+    sprite.setPosition(collider.getPosition() + temp);
+
+    return sprite;
+}

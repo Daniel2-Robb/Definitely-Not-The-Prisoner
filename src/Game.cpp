@@ -52,7 +52,8 @@ bool Game::init()
 	temp_tiles[5] = { Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::WALL, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::EMPTY, Level::Tile::WALL };
 	temp_tiles[2][2] = Level::Tile::PLAYER_SPAWN;
 	temp_tiles[7][2] = Level::Tile::PLAYER_CHECKPOINT;
-	temp_tiles[7][7] = Level::Tile::ENEMY_SPAWN;
+	temp_tiles[10][10] = Level::Tile::ENEMY_SPAWN;
+	temp_tiles[3][12] = Level::Tile::ENEMY_SPAWN;
 
 	for (int i = 0; i < 15; i++)
 	{

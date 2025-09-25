@@ -55,6 +55,15 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 				checkpoint_position.x = j * tile_size;
 				checkpoint_position.y = i * tile_size;
 			}
+			if (tile == Tile::ENEMY_SPAWN)
+			{
+				Enemy enemy(this->character_tileset);
+				// Set sprite frame for enemy (for now reuse player’s sprite area or pick another frame)
+				enemy.getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16)); // choose a different frame
+				enemy.setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
+				enemy.getSprite().setPosition(j * tile_size, i * tile_size);
+				enemies.push_back(enemy);
+			}
 		}
 	}
 
@@ -112,8 +121,8 @@ void Level::update(float dt)
 	// TODO: Check for generic Entity collisions
 	for (Enemy& enemy : enemies)
 	{
-		enemy.update(dt);
-		while (collisionCheck(enemy));
+		enemy.update(dt, player->getSprite().getPosition(), walkableGrid);
+		collisionCheck(enemy);
 	}
 	player->update(dt);
 	while (collisionCheck(*player));

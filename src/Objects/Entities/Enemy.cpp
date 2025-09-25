@@ -17,44 +17,62 @@ Enemy::Enemy(sf::Texture& texture) : Entity(texture)
     moveTimer = 2.f; // 2 seconds before changing direction
 }
 
-
-
-void Enemy::update(float dt, const sf::Vector2f& playerPos, const std::vector<std::vector<bool>>& walkableGrid)
+bool Enemy::canSeePlayer(const sf::Vector2f& playerPos, const std::vector<std::vector<bool>>& collisionMap)
 {
-    // Distance to player
+    sf::Vector2f start(collider.left + collider.width / 2, collider.top + collider.height / 2);
+    sf::Vector2f dir = playerPos - start;
+    float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+
+    const float visionRadius = 120.f;
+    if (distance > visionRadius) return false;
+
+    dir /= distance; // normalize
+    sf::Vector2f current = start;
+    const float step = 4.f;
+    for (float i = 0; i < distance; i += step)
+    {
+        current += dir * step;
+        int tileX = static_cast<int>(current.x) / 16;
+        int tileY = static_cast<int>(current.y) / 16;
+        if (tileX < 0 || tileY < 0 || tileY >= collisionMap.size() || tileX >= collisionMap[0].size())
+            break;
+        if (collisionMap[tileY][tileX]) return false; // wall blocks vision
+    }
+    return true;
+}
+
+void Enemy::update(float dt, const sf::Vector2f& playerPos, Level& level)
+{
+    // --- Line-of-sight check ---
+    bool seesPlayer = canSeePlayer(playerPos, level.getCollisionMap());
+
     sf::Vector2f toPlayer = playerPos - sf::Vector2f(collider.left, collider.top);
     float distance = std::sqrt(toPlayer.x * toPlayer.x + toPlayer.y * toPlayer.y);
 
-    const float visionRadius = 120.f; // enemy sees player within 120 pixels
+    const float visionRadius = 120.f;
+    const float stopDistance = 20.f;
 
-    if (distance < visionRadius)
+    // --- Decide movement ---
+    if (seesPlayer && distance > stopDistance && distance < visionRadius)
     {
         // Chase player
-        sf::Vector2f dir = toPlayer;
-        float len = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-        if (len > 0.01f)
-        {
-            dir /= len; // normalize
-            velocity = dir * speed;
-        }
-        else
-        {
-            velocity = { 0.f, 0.f };
-        }
-
-        moveTimer = 0.f; // reset wander timer
+        sf::Vector2f dir = toPlayer / distance;
+        velocity = dir * speed;
+    }
+    else if (seesPlayer && distance <= stopDistance)
+    {
+        // Stop when close
+        velocity = { 0.f, 0.f };
     }
     else
     {
-        // --- wandering logic ---
+        // Wandering logic
         moveTimer -= dt;
-
         if (moveTimer <= 0.f)
         {
             float chance = static_cast<float>(std::rand()) / RAND_MAX;
-
-            if (chance < 0.2f) // 20% chance to stop
-                currentDirection = { 0.f, 0.f };
+            if (chance < 0.2f)
+                currentDirection = { 0.f, 0.f }; // random stop
             else
             {
                 float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.f * 3.14159265f;
@@ -66,49 +84,38 @@ void Enemy::update(float dt, const sf::Vector2f& playerPos, const std::vector<st
         }
     }
 
-    // --- collision avoidance with walls ---
+    // --- Predict collision ---
     sf::FloatRect nextCollider = collider;
     nextCollider.left += velocity.x * dt;
     nextCollider.top += velocity.y * dt;
 
-    int tileSize = 16;
-    int leftTile = static_cast<int>(nextCollider.left / tileSize);
-    int rightTile = static_cast<int>((nextCollider.left + nextCollider.width) / tileSize);
-    int topTile = static_cast<int>(nextCollider.top / tileSize);
-    int bottomTile = static_cast<int>((nextCollider.top + nextCollider.height) / tileSize);
-
-    bool hitWall = false;
-    for (int y = topTile; y <= bottomTile && y < walkableGrid.size(); ++y)
+    // Use Level collision check
+    Entity tempEntity = *this;
+    tempEntity.setCollider(nextCollider);
+    if (level.collisionCheck(tempEntity))
     {
-        for (int x = leftTile; x <= rightTile && x < walkableGrid[0].size(); ++x)
+        // Collision detected: pick new direction
+        if (seesPlayer)
         {
-            if (x < 0 || y < 0) continue;
-            if (!walkableGrid[y][x])
-            {
-                hitWall = true;
-                break;
-            }
+            // Try to move towards player but pick a slightly different angle
+            float angleToPlayer = std::atan2(toPlayer.y, toPlayer.x);
+            float offset = ((std::rand() % 2 == 0) ? 0.25f : -0.25f); // radians
+            float newAngle = angleToPlayer + offset;
+            currentDirection = { std::cos(newAngle), std::sin(newAngle) };
         }
-        if (hitWall) break;
-    }
-
-    if (hitWall)
-    {
-        // Pick a new random direction when hitting a wall
-        float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.f * 3.14159265f;
-        currentDirection = { std::cos(angle), std::sin(angle) };
+        else
+        {
+            // Wandering: random new direction
+            float angle = static_cast<float>(std::rand()) / RAND_MAX * 2.f * 3.14159265f;
+            currentDirection = { std::cos(angle), std::sin(angle) };
+        }
         velocity = currentDirection * speed;
-        moveTimer = 1.f; // shorter time until next change
+
+        // Stop briefly to avoid jitter
+        if (!seesPlayer) velocity = { 0.f, 0.f };
+        moveTimer = 0.5f;
     }
 
-    // Move enemy
+    // --- Apply movement ---
     Entity::update(dt);
 }
-
-
-
-
-
-
-
-

@@ -9,6 +9,9 @@
 #include "../Objects/Entities/Enemy.h"
 #include "../Objects/Entities/Player.h"
 
+class Enemy; // forward declaration
+
+
 class Level
 {
 public:
@@ -31,16 +34,16 @@ private:
 
 	// Level Data
 	std::array<std::array<Tile, 100>, 100> tiles; // TODO: Change to dynamic memory to cut down on stack size (?)
-	std::array<std::array<bool, 100>, 100> collision_map;
+	
 	const int tile_size = 16;
 	sf::Vector2f checkpoint_position;
 
 	Player* player = nullptr;
-	std::vector<Enemy> enemies;
+	
 	std::vector<Entity*> other_entities;
 
 	// Private methods
-	bool collisionCheck(Entity& entity);
+	
 
 	std::vector<std::vector<bool>> walkableGrid;
 
@@ -49,11 +52,14 @@ public:
 	Level(sf::Texture& tileset, sf::Texture& entity_tileset);
 	Level(sf::Texture& tileset, sf::Texture& entity_tileset, std::array<std::array<Tile, 100>, 100> tiles);
 	~Level();
-
+	std::vector<Enemy*> enemies;
+	const std::vector<std::vector<bool>>& getCollisionMap() const { return walkableGrid; }
 	void update(float dt);
 	void render(sf::RenderWindow& window);
-
+	bool collisionCheck(Entity& entity);
 	Player& getPlayer();
+
+	std::array<std::array<bool, 100>, 100> collision_map;
 };
 
 #endif // _NOTTHEPRISONER_LEVEL_HPP_

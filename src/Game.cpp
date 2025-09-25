@@ -12,6 +12,7 @@ Game::~Game()
 	delete level;
 	delete menu;
 	delete cutscene;
+	delete end;
 }
 
 

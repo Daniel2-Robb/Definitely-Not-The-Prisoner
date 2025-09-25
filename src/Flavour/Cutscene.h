@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <Windows.h>
+#include <sfml/System/Clock.hpp>
 
 class Cutscene
 {

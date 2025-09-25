@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "../../Environment/Level.h"
+class Level;
 
 // TODO: Add enemy ai logic
 class Enemy : public Entity
@@ -17,9 +19,11 @@ private:
     int currentPathIndex = 0;
     float pathTimer = 0.f;
 
+    bool canSeePlayer(const sf::Vector2f& playerPos, const std::vector<std::vector<bool>>& collisionMap);
+
 public:
     Enemy(sf::Texture& texture);
-    void update(float dt, const sf::Vector2f& playerPos, const std::vector<std::vector<bool>>& walkableGrid);
+    void update(float dt, const sf::Vector2f& playerPos, Level& level);
     void updateWithPathfinding(float dt,
         const std::vector<std::vector<bool>>& walkableGrid,
         const sf::Vector2f& playerPos);

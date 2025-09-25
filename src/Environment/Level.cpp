@@ -54,12 +54,12 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 			}
 			if (tile == Tile::ENEMY_SPAWN)
 			{
-				Enemy enemy(this->character_tileset);
-				// Set sprite frame for enemy (for now reuse player’s sprite area or pick another frame)
-				enemy.getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16)); // choose a different frame
-				enemy.setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
-				enemy.getSprite().setPosition(j * tile_size, i * tile_size);
+				Enemy* enemy = new Enemy(this->character_tileset);
+				enemy->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
+				enemy->setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
+				enemy->getSprite().setPosition(j * tile_size, i * tile_size);
 				enemies.push_back(enemy);
+
 			}
 		}
 	}
@@ -112,12 +112,12 @@ void Level::update(float dt)
 	// Entity updating
 
 	// Entity collision checking
+	// TODO: Check for generic Entity collisions
+	for (Enemy* enemy : enemies)
 	// TODO: Check for generic Entity & GameObject collisions
-	// TODO: Check for collision between Entities
-	for (Enemy& enemy : enemies)
 	{
-		enemy.update(dt, player->getSprite().getPosition(), walkableGrid);
-		collisionCheck(enemy);
+		enemy->update(dt, player->getSprite().getPosition(), *this);
+		collisionCheck(*enemy);
 	}
 	player->update(dt);
 	while (collisionCheck(*player));
@@ -153,10 +153,11 @@ void Level::render(sf::RenderWindow& window)
 	}
 
 	// TODO: Render entities
-	for (Enemy& enemy : enemies)
+	for (Enemy* enemy : enemies)
 	{
-		window.draw(enemy.getSprite());
+		window.draw(enemy->getSprite());
 	}
+
 	window.draw(player->getSprite());
 }
 

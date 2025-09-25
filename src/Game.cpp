@@ -70,11 +70,18 @@ bool Game::init()
 
 void Game::update(float dt)
 {
-	level->update(dt);
+	switch (state)
+	{
+	case MENU:
+		break;
+	case CUTSCENE:
+		break;
+	case GAMEPLAY:
+		level->update(dt);
+		level->getPlayer().aiming();
+		break;
 
-	sf::Vector2i mouse_position = sf::Mouse::getPosition();
-	mouse_position -= window.getPosition();
-	level->getPlayer().aiming(mouse_position);
+	}
 }
 
 void Game::render()
@@ -86,7 +93,7 @@ void Game::render()
 		break;
 
 	case CUTSCENE:
-
+		Cutscene.cutscenePlay();
 		break;
 
 	case GAMEPLAY:

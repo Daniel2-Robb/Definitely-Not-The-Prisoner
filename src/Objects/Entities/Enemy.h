@@ -8,7 +8,6 @@
 #include "../../Environment/Level.h"
 class Level;
 
-// TODO: Add enemy ai logic
 class Enemy : public Entity
 {
 private:

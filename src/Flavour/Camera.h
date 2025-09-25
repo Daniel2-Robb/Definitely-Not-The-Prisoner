@@ -1,0 +1,23 @@
+
+#ifndef _NOTTHEPRISONER_CAMERA_H_
+#define _NOTTHEPRISONER_CAMERA_H_
+
+#include <SFML/Graphics.hpp>
+
+class Camera
+{
+private:
+	sf::View view;
+	float speed = 2.f;
+	float minvalue = 1.f;
+
+public:
+	Camera(sf::Vector2f size);
+
+	void update(sf::Vector2f position, float dt);
+
+	sf::View& getView();
+	void setSpeed(float speed);
+};
+
+#endif // _NOTTHEPRISONER_CAMERA_H_s

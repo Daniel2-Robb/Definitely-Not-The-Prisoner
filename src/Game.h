@@ -6,18 +6,24 @@
 #include <SFML/Graphics.hpp>
 
 #include "Environment/Level.h"
-//#include "Flavour/Cutscene.h"
+#include "Flavour/Camera.h"
+#include "Flavour/Cutscene.h"
+#include "Flavour/Menu.h"
 
 class Game
 {
 private:
 	// Rendering/Graphics
 	sf::RenderWindow& window;
+	Camera camera;
+
 	sf::Texture level_tileset;
 	sf::Texture character_tileset;
 
 	// Game data
 	Level* level = nullptr;
+	Cutscene* cutscene = nullptr;
+	Menu* menu = nullptr;
 
 	// Gamestate logic
 	enum GameState

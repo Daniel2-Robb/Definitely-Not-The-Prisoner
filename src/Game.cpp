@@ -1,9 +1,10 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow& window) : window(window)
+Game::Game(sf::RenderWindow& window) 
+	: window(window), camera(sf::Vector2f(window.getSize().x, window.getSize().y))
 {
-	
+
 }
 
 Game::~Game()
@@ -17,7 +18,7 @@ bool Game::init()
 	bool success = true;
 
 	// NOTE: Remove after testing
-	state = GAMEPLAY;
+	state = MENU;
 
 	if (!font.loadFromFile("../content/Fonts/OpenSans-Bold.ttf")) // Replace with a valid font path
 	{
@@ -75,7 +76,10 @@ bool Game::init()
 	}
 
 	level = new Level(level_tileset, character_tileset, level_tiles);
-
+	cutscene = new Cutscene();
+	menu = new Menu();
+	cutscene->cutsceneInit();
+	menu->menuInit(window);
 	return success;
 }
 
@@ -86,6 +90,8 @@ void Game::update(float dt)
 	case MENU:
 		break;
 	case CUTSCENE:
+		cutscene->cutscenePlay(window);
+		state = GAMEPLAY;
 		break;
 	case GAMEPLAY:
 		level->update(dt);
@@ -98,6 +104,10 @@ void Game::update(float dt)
 		char buffer[16];
 		std::sprintf(buffer, "%02d:%02d", minutes, seconds);
 		timerText.setString(buffer);
+		camera.update(level->getPlayer().getCollider().getPosition(), dt);
+
+		sf::Vector2i mouse_position = sf::Mouse::getPosition() - window.getPosition();
+		level->getPlayer().aiming(mouse_position);
 		break;
 
 	}
@@ -105,18 +115,21 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	/*switch (state)
+	switch (state)
 	{
 	case MENU:
 		
+		menu->menuRender(window);
+
 		break;
 
 	case CUTSCENE:
-
+		//Cutscene.cutscenePlay();
 		break;
 
 	case GAMEPLAY:
-		
+		level->render(window);
+		window.setView(camera.getView());
 		break;
 
 	}*/
@@ -125,6 +138,7 @@ void Game::render()
 	level->render(window);
 
 	window.draw(timerText);
+	}
 }
 
 
@@ -140,11 +154,16 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case MENU:
 		//In-menu inputs
+		state = CUTSCENE;
 
 		break;
 
 	case CUTSCENE:
 		//In-cutscene inputs
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
 
 		break;
 

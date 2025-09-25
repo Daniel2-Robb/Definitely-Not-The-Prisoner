@@ -19,6 +19,8 @@ public:
 
 	sf::Vector2f getVelocity();
 	void setVelocity(sf::Vector2f velocity);
+
+	sf::Sprite& getSprite() override;
 };
 
 #endif // _NOTTHEPRISONER_ENTITY_H_

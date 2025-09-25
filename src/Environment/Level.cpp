@@ -1,9 +1,6 @@
 
 #include "Level.h"
 
-// NOTE: Remove before commit
-#include <iostream>
-
 Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 	: tileset(tileset), character_tileset(entity_tileset)
 {
@@ -99,9 +96,6 @@ bool Level::collisionCheck(Entity& entity)
 		{
 			if (collision_map[i][j])
 			{
-				// NOTE: Remove before release
-				std::cout << j * tile_size << ":" << i * tile_size << std::endl;
-
 				entity.collisonResolve(sf::FloatRect(j * tile_size, i * tile_size, tile_size, tile_size));
 
 				return true;

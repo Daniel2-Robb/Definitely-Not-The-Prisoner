@@ -98,6 +98,12 @@ void Game::update(float dt)
 		break;
 	case GAMEPLAY:
 		level->update(dt);
+		level->getPlayer().getSprite().setRotation(90);
+
+		/*if all enemies dead
+		* {
+		*	state = END;
+		* }*/
 
 		// Temporary timer for testing
 		elapsedTime += dt;
@@ -139,9 +145,14 @@ void Game::render()
 		window.setView(camera.getView());
 		break;
 
+	case END:
+		end->endRender(window);
+		break;
+
 	}
 
 	window.draw(timerText);
+	
 }
 
 
@@ -161,7 +172,14 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case MENU:
 		//In-menu inputs
-		state = CUTSCENE;
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
+		else
+		{
+			state = CUTSCENE;
+		}
 
 		break;
 
@@ -196,6 +214,18 @@ void Game::keyboardInput(const sf::Event& event)
 			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 			break;
 		}
+		break;
+	case END:
+		//In-end screen inputs
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
+		else
+		{
+			state = MENU;
+		}
+
 		break;
 	}
 }

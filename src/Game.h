@@ -9,6 +9,7 @@
 #include "Flavour/Camera.h"
 #include "Flavour/Cutscene.h"
 #include "Flavour/Menu.h"
+#include "Flavour/End.h"
 
 class Game
 {
@@ -24,13 +25,15 @@ private:
 	Level* level = nullptr;
 	Cutscene* cutscene = nullptr;
 	Menu* menu = nullptr;
+	End* end = nullptr;
 
 	// Gamestate logic
 	enum GameState
 	{
 		MENU,
 		CUTSCENE,
-		GAMEPLAY
+		GAMEPLAY,
+		END
 	} state = MENU;
 	sf::Font font;
 	sf::Text timerText;

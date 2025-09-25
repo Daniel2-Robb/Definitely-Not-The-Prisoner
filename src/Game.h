@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Environment/Level.h"
+#include "Flavour/Camera.h"
 #include "Flavour/Cutscene.h"
 #include "Flavour/Menu.h"
 

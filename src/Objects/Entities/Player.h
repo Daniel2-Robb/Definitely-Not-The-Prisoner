@@ -2,19 +2,23 @@
 #ifndef _NOTTHEPRISONER_PLAYER_H_
 #define _NOTTHEPRISONER_PLAYER_H_
 
+#include "../Weapon.h"
 #include "Entity.h"
 
 class Player : public Entity
 {
 private:
-	// TODO: Add held item/weapon when implemented?
+	// Default weapon
+	//Weapon hands;
 
 
 public:
+	// Held weapon
+	//Weapon* weapon = nullptr;
+
 	// All types of player input
 	enum Input
 	{
-		// TODO: Fill with all possible player actions
 		IDLE,
 		START_MOVE_LEFT,
 		STOP_MOVE_LEFT,
@@ -29,7 +33,7 @@ public:
 
 	Input player_state = IDLE;
 
-	Player(sf::Texture& texture);
+	Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/);
 	
 	void playerInput(Input input);
 };

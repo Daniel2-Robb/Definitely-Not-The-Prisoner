@@ -72,6 +72,11 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 Level::~Level()
 {
 	delete player;
+
+	for (Enemy* enemy : enemies)
+	{
+		delete enemy;
+	}
 }
 
 
@@ -109,18 +114,23 @@ bool Level::collisionCheck(Entity& entity)
 
 void Level::update(float dt)
 {
-	// Entity updating
-
-	// Entity collision checking
-	// TODO: Check for generic Entity collisions
-	for (Enemy* enemy : enemies)
+	// Entity updating and collision checking
 	// TODO: Check for generic Entity & GameObject collisions
-	{
-		enemy->update(dt, player->getSprite().getPosition(), *this);
-		while (collisionCheck(*enemy));
-	}
 	player->update(dt);
 	while (collisionCheck(*player));
+
+	for (Enemy* enemy : enemies)
+	{
+		if (enemy->is_loaded)
+		{
+			enemy->update(dt, player->getSprite().getPosition(), *this);
+			while (collisionCheck(*enemy));
+
+			// TODO: Check for collision between Enemies
+			// TODO: Check for collision between Player and Enemies
+			// TODO: Check for collision between bullet Entities and Enemies
+		}
+	}
 }
 
 void Level::render(sf::RenderWindow& window)

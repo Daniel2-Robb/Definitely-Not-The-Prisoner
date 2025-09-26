@@ -4,7 +4,8 @@
 // NOTE: Remove before commit
 #include <iostream>
 
-Player::Player(sf::Texture& texture) : Entity(texture)
+Player::Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/) 
+	: Entity(texture)
 {
 	speed = 100.f;
 }

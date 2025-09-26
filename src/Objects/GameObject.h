@@ -16,6 +16,8 @@ protected:
 	sf::Sprite sprite;
 
 public:
+	bool is_loaded = true;
+
 	GameObject(sf::Texture& texture);
 	~GameObject();
 

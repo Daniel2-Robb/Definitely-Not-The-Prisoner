@@ -51,7 +51,7 @@ bool Game::init()
 	{
 		row.fill(Level::Tile::EMPTY);
 	}
-	std::array<std::array<Level::Tile, 30>, 30> temp_tiles;
+	std::array<std::array<Level::Tile, 100>, 100> temp_tiles;
 	// Making temp_tiles for temp level for testing etc etc
 	for (auto& row : temp_tiles)
 	{
@@ -60,36 +60,52 @@ bool Game::init()
 	
 
 	// Fill from pattern
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 55; i++)
 	{
 		temp_tiles[0][i] = Level::Tile::WALL;
-		temp_tiles[29][i] = Level::Tile::WALL;
+		temp_tiles[54][i] = Level::Tile::WALL;
 		temp_tiles[i][0] = Level::Tile::WALL;
-		temp_tiles[i][29] = Level::Tile::WALL;
+		temp_tiles[i][54] = Level::Tile::WALL;
 	}
 	
 	//x < 2 || x > 4
 
 	// Horizontal corridors
-	for (int x = 1; x < 30; x++)
+	for (int x = 1; x < 55; x++)
 	{
-		if (x < 2)
+		if (x < 10)
 			temp_tiles[8][x] = Level::Tile::WALL;
 
-		if (x != 15)
+		if (x < 2 || x > 8 && x < 27)
 			temp_tiles[15][x] = Level::Tile::WALL;
 
-		if (x != 10 && x != 20)
-			temp_tiles[22][x] = Level::Tile::WALL;
+		if (x > 16 && x < 22)
+			temp_tiles[21][x] = Level::Tile::WALL;
+
+		if (x > 18 && x < 26 || x > 34)
+			temp_tiles[34][x] = Level::Tile::WALL;
+
+		if (x < 2 || x > 8 && x < 18)
+			temp_tiles[36][x] = Level::Tile::WALL;
+
+		if (x > 18 && x < 23 || x > 29 && x < 44 || x > 50)
+			temp_tiles[43][x] = Level::Tile::WALL;
 	}
 
-	for (int y = 1; y < 29; y++)
+	for (int y = 1; y < 54; y++)
 	{
-		if (y > 12 && y < 18)
-			temp_tiles[y][6] = Level::Tile::WALL;
 
-		if (y != 10 && y != 20)
-			temp_tiles[y][20] = Level::Tile::WALL;
+		if (y < 2 || y > 6 && y < 10 || y > 13 && y < 22 || y > 28 && y < 36)
+			temp_tiles[y][10] = Level::Tile::WALL;
+
+		if (y < 12 || y > 18 && y < 19)
+			temp_tiles[y][16] = Level::Tile::WALL;
+
+		if (y > 20 && y < 44)
+			temp_tiles[y][18] = Level::Tile::WALL;
+
+		if (y > 12 && y < 25)
+			temp_tiles[y][27] = Level::Tile::WALL;
 	}
 
 	// Add spawns and checkpoints
@@ -100,9 +116,9 @@ bool Game::init()
 	temp_tiles[9][15] = Level::Tile::ENEMY_SPAWN;
 	temp_tiles[25][15] = Level::Tile::ENEMY_SPAWN;
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 55; i++)
 	{
-		for (int j = 0; j < 30; j++)
+		for (int j = 0; j < 55; j++)
 		{
 			level_tiles[i][j] = temp_tiles[i][j];
 		}

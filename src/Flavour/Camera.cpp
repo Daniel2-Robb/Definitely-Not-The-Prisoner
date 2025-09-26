@@ -45,3 +45,9 @@ void Camera::setCentre(sf::Vector2f position)
 {
 	view.setCenter(position);
 }
+
+sf::Vector2f Camera::getPosition()
+{
+	//sf::Vector2f getCenter = ;
+	return sf::Vector2f ((view.getCenter().x) - (view.getSize().x / 2), (view.getCenter().y) - (view.getSize().y / 2));
+}

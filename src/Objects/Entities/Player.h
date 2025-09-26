@@ -37,6 +37,8 @@ public:
 	~Player();
 	
 	void playerInput(Input input);
+
+	int player_life = 3;
 };
 
 #endif // _NOTTHEPRISONER_PLAYER_H_

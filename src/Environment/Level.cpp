@@ -176,6 +176,12 @@ void Level::update(float dt)
 	{
 		// TODO: Make corpse at death location
 		// TODO: Remove life and reset player position
+
+		player->player_life++;
+		sf::FloatRect temprect = player->getCollider();
+		temprect.left = checkpoint_position.x;
+		temprect.top = checkpoint_position.y;
+		player->setCollider(temprect);
 	}
 }
 

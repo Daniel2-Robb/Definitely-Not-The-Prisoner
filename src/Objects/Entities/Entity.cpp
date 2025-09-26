@@ -133,7 +133,7 @@ void Entity::rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos)
     // Convert from radians to degrees for setRotation method
     rotation_angle = 360 * (rotation_angle / 6.28318);
 
-    sprite.setRotation(rotation_angle + 180); // +180 is due to character textures facing downwards
+    sprite.setRotation(rotation_angle); // +180 is due to character textures facing downwards
     rotation = rotation_angle;
 
     // Reset player origin point to keep other transformations working

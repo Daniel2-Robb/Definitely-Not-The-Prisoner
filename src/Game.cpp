@@ -40,14 +40,14 @@ bool Game::init()
 		std::cout << "LevelTilemap.png failed to load" << std::endl;
 		success = false;
 	}
-	if (!character_tileset.loadFromFile("../content/ActorSpritesheet.png"))
+	if (!character_spritesheet.loadFromFile("../content/CharacterSpritesheet.png"))
 	{
-		std::cout << "ActorSpritesheet.png failed to load" << std::endl;
+		std::cout << "CharacterSpritesheet.png failed to load" << std::endl;
 		success = false;
 	}
-	if (!weapon_tileset.loadFromFile("../content/Bullet.png"))
+	if (!weapon_spritesheet.loadFromFile("../content/WeaponSpritesheet.png"))
 	{
-		std::cout << "Bullet.png failed to load" << std::endl;
+		std::cout << "WeaponSpritesheet.png failed to load" << std::endl;
 		success = false;
 	}
 
@@ -139,7 +139,7 @@ bool Game::init()
 		}
 	}
 
-	level = new Level(level_tileset, character_tileset, level_tiles);
+	level = new Level(level_tileset, character_spritesheet, level_tiles);
 	cutscene = new Cutscene();
 	menu = new Menu();
 	end  = new End();
@@ -152,7 +152,8 @@ bool Game::init()
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
 
 	// NOTE: Bad but no time so whatever
-	level->getPlayer().weapon = new Weapon(weapon_tileset, 300.f, 5000.f, "gun");
+	// TODO: Pass weapon spritesheet in better for god's sake
+	level->getPlayer().weapon = new Weapon(weapon_spritesheet, 300.f, 5000.f, "gun");
 
 	return success;
 }

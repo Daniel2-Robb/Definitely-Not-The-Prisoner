@@ -27,7 +27,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 	checkpoint_position = sf::Vector2f(0, 0);
 
 	player = new Player(this->character_tileset);
-	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
+	player->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
 	player->setCollider(sf::FloatRect(0, 0, 16, 16));
 }
 
@@ -55,7 +55,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 			if (tile == Tile::ENEMY_SPAWN)
 			{
 				Enemy* enemy = new Enemy(this->character_tileset);
-				enemy->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
+				enemy->getSprite().setTextureRect(sf::IntRect(0, 16, 16, 16));
 				enemy->setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
 				enemy->getSprite().setPosition(j * tile_size, i * tile_size);
 				enemies.push_back(enemy);
@@ -66,7 +66,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 	}
 
 	player = new Player(this->character_tileset);
-	player->getSprite().setTextureRect(sf::IntRect(16, 0, 16, 16));
+	player->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
 	player->setCollider(sf::FloatRect(checkpoint_position.x, checkpoint_position.y, 16, 16));
 }
 
@@ -209,7 +209,7 @@ void Level::render(sf::RenderWindow& window)
 				switch (tiles[y][x])
 				{
 				case Tile::FLOOR_DEFAULT:
-					tile_sprite.setTextureRect(sf::IntRect(48, 16, 16, 16));
+					tile_sprite.setTextureRect(sf::IntRect(0, 48, 16, 16));
 					break;
 
 				case Tile::WALL:
@@ -217,7 +217,7 @@ void Level::render(sf::RenderWindow& window)
 					break;
 
 				default:
-					tile_sprite.setTextureRect(sf::IntRect(32, 16, 16, 16));
+					tile_sprite.setTextureRect(sf::IntRect(0, 64, 16, 16));
 					break;
 				}
 

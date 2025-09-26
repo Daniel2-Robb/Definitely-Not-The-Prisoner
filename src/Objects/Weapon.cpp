@@ -62,7 +62,8 @@ Entity* Weapon::shoot(sf::Vector2f position, float angle)
 	projectile = new Entity(texture);
 	projectile->setCollider({ position.x, position.y, 16, 16 });
 	projectile->setVelocity(velocity);
-	projectile->getSprite().setTextureRect({ 0, 0, 16, 16 });
+	projectile->getSprite().setTextureRect({ 16, 16, 16, 16 });
+	projectile->getSprite().setRotation(angle);
 
 	projectiles.push_back(projectile);
 

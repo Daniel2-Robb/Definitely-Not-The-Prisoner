@@ -20,8 +20,8 @@ private:
 	Camera camera;
 
 	sf::Texture level_tileset;
-	sf::Texture character_tileset;
-	sf::Texture weapon_tileset;
+	sf::Texture character_spritesheet;
+	sf::Texture weapon_spritesheet;
 
 	// Game data
 	Level* level = nullptr;

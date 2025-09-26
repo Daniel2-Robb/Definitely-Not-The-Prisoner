@@ -166,6 +166,13 @@ void Level::update(float dt)
 			// TODO: Check for collision between bullet Entities and Enemies
 		}
 	}
+
+	// Check for collision between Player and Enemies
+	if (enemyCollisionCheck(*player))
+	{
+		// TODO: Make corpse at death location
+		// TODO: Remove life and reset player position
+	}
 }
 
 void Level::render(sf::RenderWindow& window)

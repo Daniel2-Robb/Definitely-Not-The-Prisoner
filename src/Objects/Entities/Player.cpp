@@ -10,6 +10,11 @@ Player::Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/)
 	speed = 100.f;
 }
 
+Player::~Player()
+{
+	delete weapon;
+}
+
 
 void Player::playerInput(Player::Input input)
 {
@@ -53,7 +58,7 @@ void Player::playerInput(Player::Input input)
 		break;
 
 	case Input::ATTACK:
-		// TODO: Add attack command when weapons added
+		weapon->shoot(rotation);
 		break;
 	}
 }

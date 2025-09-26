@@ -53,7 +53,7 @@ Entity* Weapon::shoot(float angle)
 
 	projectile = new Entity(texture);
 	projectile->setVelocity(velocity);
-	projectile->getSprite().setTextureRect({ 16, 0, 16, 16 });
+	projectile->getSprite().setTextureRect({ 0, 0, 16, 16 });
 
 	return projectile;
 }

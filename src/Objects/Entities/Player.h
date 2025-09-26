@@ -14,7 +14,7 @@ private:
 
 public:
 	// Held weapon
-	//Weapon* weapon = nullptr;
+	Weapon* weapon = nullptr;
 
 	// All types of player input
 	enum Input
@@ -34,6 +34,7 @@ public:
 	Input player_state = IDLE;
 
 	Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/);
+	~Player();
 	
 	void playerInput(Input input);
 };

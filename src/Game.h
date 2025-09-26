@@ -21,6 +21,7 @@ private:
 
 	sf::Texture level_tileset;
 	sf::Texture character_tileset;
+	sf::Texture weapon_tileset;
 
 	// Game data
 	Level* level = nullptr;

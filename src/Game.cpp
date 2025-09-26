@@ -45,6 +45,11 @@ bool Game::init()
 		std::cout << "ActorSpritesheet.png failed to load" << std::endl;
 		success = false;
 	}
+	if (!weapon_tileset.loadFromFile("../content/Bullet.png"))
+	{
+		std::cout << "Bullet.png failed to load" << std::endl;
+		success = false;
+	}
 
 	// NOTE: Remove after finished testing?
 	std::array<std::array<Level::Tile, 100>, 100> level_tiles;
@@ -145,6 +150,9 @@ bool Game::init()
 	pause->pauseInit(window);
 
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
+
+	// NOTE: Bad but no time so whatever
+	level->getPlayer().weapon = new Weapon(weapon_tileset, 50.f, 5000.f, "gun");
 
 	return success;
 }
@@ -300,10 +308,10 @@ void Game::keyboardInput(const sf::Event& event)
 		{
 			window.close();
 		}
-	else
-	{
-		state = GAMEPLAY;
-	}
+		else
+		{
+			state = GAMEPLAY;
+		}
 	}
 }
 
@@ -311,7 +319,8 @@ void Game::mouseInput(const sf::Event& event)
 {
 	// TODO: Add player mouse input
 
-	if (event.MouseButtonPressed == sf::Mouse::Left)
+	if (event.mouseButton.button == sf::Mouse::Left &&
+		state == GAMEPLAY)
 	{
 		level->getPlayer().playerInput(Player::Input::ATTACK);
 	}

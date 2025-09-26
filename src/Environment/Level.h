@@ -41,7 +41,7 @@ private:
 
 	Player* player = nullptr;
 	
-	std::vector<Entity*> other_entities;
+	std::vector<Entity*> projectiles;
 
 	// Private methods
 	

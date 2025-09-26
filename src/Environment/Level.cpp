@@ -130,7 +130,7 @@ bool Level::enemyCollisionCheck(Entity& entity)
 
 bool Level::bulletCollisionCheck(Entity& entity)
 {
-	for (Entity* bullet : other_entities)
+	for (Entity* bullet : projectiles)
 	{
 		if (bullet->is_loaded &&
 			bullet->getCollider().intersects(entity.getCollider()))
@@ -150,6 +150,8 @@ void Level::update(float dt)
 	// Entity updating and collision checking
 	player->update(dt);
 	while (tileCollisionCheck(*player));
+
+	projectiles = player->weapon->getProjectiles();
 
 	for (Enemy* enemy : enemies)
 	{
@@ -206,7 +208,7 @@ void Level::render(sf::RenderWindow& window)
 		}
 	}
 
-	// TODO: Render entities
+	// Render entities
 	for (Enemy* enemy : enemies)
 	{
 		if (enemy->is_loaded)
@@ -216,6 +218,14 @@ void Level::render(sf::RenderWindow& window)
 	}
 
 	window.draw(player->getSprite());
+
+	// Draw projectiles
+	for (Entity* projectile : projectiles)
+	{
+		window.draw(projectile->getSprite());
+		std::cout << projectile->getCollider().getPosition().x << ":" << projectile->getCollider().getPosition().y << " - ";
+	}
+	//std::cout << std::endl;
 }
 
 

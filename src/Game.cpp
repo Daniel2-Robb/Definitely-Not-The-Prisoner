@@ -152,13 +152,15 @@ bool Game::init()
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
 
 	// NOTE: Bad but no time so whatever
-	level->getPlayer().weapon = new Weapon(weapon_tileset, 50.f, 5000.f, "gun");
+	level->getPlayer().weapon = new Weapon(weapon_tileset, 300.f, 5000.f, "gun");
 
 	return success;
 }
 
 void Game::update(float dt)
 {
+	std::cout << 1 / dt << std::endl;
+
 	switch (state)
 	{
 	case MENU:

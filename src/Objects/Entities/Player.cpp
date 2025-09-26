@@ -16,6 +16,14 @@ Player::~Player()
 }
 
 
+void Player::update(float dt)
+{
+	collider.left += velocity.x * dt;
+	collider.top += velocity.y * dt;
+
+	weapon->update(dt);
+}
+
 void Player::playerInput(Player::Input input)
 {
 	switch (input)
@@ -58,7 +66,7 @@ void Player::playerInput(Player::Input input)
 		break;
 
 	case Input::ATTACK:
-		weapon->shoot(rotation);
+		weapon->shoot(collider.getPosition(), rotation);
 		break;
 	}
 }

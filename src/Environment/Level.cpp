@@ -183,8 +183,17 @@ void Level::update(float dt)
 		temprect.top = checkpoint_position.y;
 		player->setCollider(temprect);
 	}
+
+	for (Entity* projectile : projectiles)
+	{
+		if (tileCollisionCheck(*projectile))
+		{
+			projectile->is_loaded = false;
+		}
+	}
 }
 
+// TODO: Cut down on draw calls as it's quite expensive and the primary performance inhibitor(?)
 void Level::render(sf::RenderWindow& window)
 {
 	// Tile rendering
@@ -192,25 +201,28 @@ void Level::render(sf::RenderWindow& window)
 	{
 		for (int x = 0; x < tiles[0].size(); x++)
 		{
-			tile_sprite.setPosition(x * tile_size, y * tile_size);
-
-			// TODO: Add texturerect for other tile types
-			switch (tiles[y][x])
+			if (tiles[y][x] != Tile::EMPTY)
 			{
-			case Tile::FLOOR_DEFAULT:
-				tile_sprite.setTextureRect(sf::IntRect(48, 16, 16, 16));
-				break;
+				tile_sprite.setPosition(x * tile_size, y * tile_size);
 
-			case Tile::WALL:
-				tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
-				break;
+				// TODO: Add texturerect for other tile types
+				switch (tiles[y][x])
+				{
+				case Tile::FLOOR_DEFAULT:
+					tile_sprite.setTextureRect(sf::IntRect(48, 16, 16, 16));
+					break;
 
-			default:
-				tile_sprite.setTextureRect(sf::IntRect(32, 16, 16, 16));
-				break;
+				case Tile::WALL:
+					tile_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+					break;
+
+				default:
+					tile_sprite.setTextureRect(sf::IntRect(32, 16, 16, 16));
+					break;
+				}
+
+				window.draw(tile_sprite);
 			}
-
-			window.draw(tile_sprite);
 		}
 	}
 
@@ -228,10 +240,11 @@ void Level::render(sf::RenderWindow& window)
 	// Draw projectiles
 	for (Entity* projectile : projectiles)
 	{
-		window.draw(projectile->getSprite());
-		std::cout << projectile->getCollider().getPosition().x << ":" << projectile->getCollider().getPosition().y << " - ";
+		if (projectile->is_loaded)
+		{
+			window.draw(projectile->getSprite());
+		}
 	}
-	//std::cout << std::endl;
 }
 
 

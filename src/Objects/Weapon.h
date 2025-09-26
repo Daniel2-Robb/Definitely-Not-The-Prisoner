@@ -25,7 +25,7 @@ public:
 	~Weapon();
 
 	void update(float dt);
-	Entity* shoot(float angle);
+	Entity* shoot(sf::Vector2f position, float angle);
 
 	std::vector<Entity*>& getProjectiles();
 };

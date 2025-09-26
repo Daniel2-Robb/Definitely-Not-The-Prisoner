@@ -19,7 +19,8 @@ void Weapon::update(float dt)
 {
 	for (Entity* projectile : projectiles)
 	{
-		if (projectile != nullptr)
+		if (projectile != nullptr &&
+			projectile->is_loaded)
 		{
 			projectile->update(dt);
 			// TODO: Check entity lifetime and delete if over it
@@ -31,7 +32,7 @@ void Weapon::update(float dt)
 	}
 }
 
-Entity* Weapon::shoot(float angle)
+Entity* Weapon::shoot(sf::Vector2f position, float angle)
 {
 	Entity* projectile = nullptr;
 
@@ -41,19 +42,29 @@ Entity* Weapon::shoot(float angle)
 	float opposite = sin(radians) * projectile_speed;
 	float adjacent = cos(radians) * projectile_speed;
 
-	if ((angle >= 0 && angle < 90) ||
-		(angle >= 180 && angle < 270))
+	if (angle >= 0 && angle < 90)
 	{
-		velocity = sf::Vector2f(opposite, adjacent);
+		velocity = sf::Vector2f(opposite, -adjacent);
 	}
-	else
+	else if (angle >= 90 && angle < 180)
 	{
 		velocity = sf::Vector2f(adjacent, opposite);
 	}
+	else if (angle >= 180 && angle < 270)
+	{
+		velocity = sf::Vector2f(-opposite, adjacent);
+	}
+	else
+	{
+		velocity = sf::Vector2f(-adjacent, -opposite);
+	}
 
 	projectile = new Entity(texture);
+	projectile->setCollider({ position.x, position.y, 16, 16 });
 	projectile->setVelocity(velocity);
 	projectile->getSprite().setTextureRect({ 0, 0, 16, 16 });
+
+	projectiles.push_back(projectile);
 
 	return projectile;
 }

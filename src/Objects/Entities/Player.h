@@ -36,6 +36,7 @@ public:
 	Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/);
 	~Player();
 	
+	void update(float dt) override;
 	void playerInput(Input input);
 
 	int player_life = 3;

@@ -92,7 +92,7 @@ void Enemy::update(float dt, const sf::Vector2f& playerPos, Level& level)
     // Use Level collision check
     Entity tempEntity = *this;
     tempEntity.setCollider(nextCollider);
-    if (level.collisionCheck(tempEntity))
+    if (level.tileCollisionCheck(tempEntity))
     {
         // Collision detected: pick new direction
         if (seesPlayer)

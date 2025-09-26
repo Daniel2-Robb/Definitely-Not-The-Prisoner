@@ -81,7 +81,7 @@ Level::~Level()
 }
 
 
-bool Level::collisionCheck(Entity& entity)
+bool Level::tileCollisionCheck(Entity& entity)
 {
 	// Convert entity position and size to int and 'stretch' to all tiles it would intersect
 	sf::Vector2i topleft(entity.getCollider().getPosition().x, entity.getCollider().getPosition().y);
@@ -112,22 +112,56 @@ bool Level::collisionCheck(Entity& entity)
 	return false;
 }
 
+bool Level::enemyCollisionCheck(Entity& entity)
+{
+	for (Enemy* enemy : enemies)
+	{
+		if (enemy->is_loaded && 
+			enemy != &entity &&
+			enemy->getCollider().intersects(entity.getCollider()))
+		{
+			entity.collisonResolve(enemy->getCollider());
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Level::bulletCollisionCheck(Entity& entity)
+{
+	for (Entity* bullet : other_entities)
+	{
+		if (bullet->is_loaded &&
+			bullet->getCollider().intersects(entity.getCollider()))
+		{
+			bullet->is_loaded = false;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 
 void Level::update(float dt)
 {
 	// Entity updating and collision checking
-	// TODO: Check for generic Entity & GameObject collisions
 	player->update(dt);
-	while (collisionCheck(*player));
+	while (tileCollisionCheck(*player));
 
 	for (Enemy* enemy : enemies)
 	{
 		if (enemy->is_loaded)
 		{
 			enemy->update(dt, player->getSprite().getPosition(), *this);
-			while (collisionCheck(*enemy));
+			// Check for collision with level geometry
+			while (tileCollisionCheck(*enemy));
+			// Check for collision with other enemies
+			while (enemyCollisionCheck(*enemy));
+			
 
-			// TODO: Check for collision between Enemies
 			// TODO: Check for collision between Player and Enemies
 			// TODO: Check for collision between bullet Entities and Enemies
 		}

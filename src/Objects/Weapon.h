@@ -11,6 +11,8 @@
 class Weapon : public GameObject
 {
 private:
+	sf::Texture& texture;
+
 	std::vector<Entity*> projectiles;
 	float projectile_speed;
 	float projectile_lifetime;

@@ -58,7 +58,11 @@ public:
 	const std::vector<std::vector<bool>>& getCollisionMap() const { return walkableGrid; }
 	void update(float dt);
 	void render(sf::RenderWindow& window);
-	bool collisionCheck(Entity& entity);
+
+	bool tileCollisionCheck(Entity& entity);
+	bool enemyCollisionCheck(Entity& entity);
+	bool bulletCollisionCheck(Entity& entity);
+
 	Player& getPlayer();
 	int enemy_count = 0;
 	

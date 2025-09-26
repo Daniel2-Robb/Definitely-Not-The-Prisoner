@@ -2,9 +2,8 @@
 #include "Weapon.h"
 
 Weapon::Weapon(sf::Texture& texture, float proj_speed, float proj_lifetime, std::string name)
-	: GameObject(texture), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime), name(name)
+	: GameObject(texture), texture(texture), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime), name(name)
 {
-	
 }
 
 Weapon::~Weapon()
@@ -52,7 +51,9 @@ Entity* Weapon::shoot(float angle)
 		velocity = sf::Vector2f(adjacent, opposite);
 	}
 
-	// TODO: Make projectile object and add to projectiles
+	projectile = new Entity(texture);
+	projectile->setVelocity(velocity);
+	projectile->getSprite().setTextureRect({ 16, 0, 16, 16 });
 
 	return projectile;
 }

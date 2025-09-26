@@ -160,10 +160,12 @@ void Level::update(float dt)
 			while (tileCollisionCheck(*enemy));
 			// Check for collision with other enemies
 			while (enemyCollisionCheck(*enemy));
-			
-
-			// TODO: Check for collision between Player and Enemies
-			// TODO: Check for collision between bullet Entities and Enemies
+			// Check for collision between bullet Entities and Enemies
+			if (bulletCollisionCheck(*enemy))
+			{
+				enemy->is_loaded = false;
+				enemy_count--;
+			}
 		}
 	}
 
@@ -213,7 +215,10 @@ void Level::render(sf::RenderWindow& window)
 	// TODO: Render entities
 	for (Enemy* enemy : enemies)
 	{
-		window.draw(enemy->getSprite());
+		if (enemy->is_loaded)
+		{
+			window.draw(enemy->getSprite());
+		}
 	}
 
 	window.draw(player->getSprite());

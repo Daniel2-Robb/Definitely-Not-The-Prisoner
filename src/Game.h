@@ -39,7 +39,7 @@ private:
 		END
 	} state = MENU;
 	sf::Font font;
-	sf::Text timerText;
+	sf::Text timer_text;
 	float elapsedTime = 0.f;
 
 	float remainingTime = 300.f;

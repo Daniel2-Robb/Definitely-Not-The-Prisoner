@@ -36,6 +36,8 @@ public:
 	Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/);
 	
 	void playerInput(Input input);
+
+	int player_life = 3;
 };
 
 #endif // _NOTTHEPRISONER_PLAYER_H_

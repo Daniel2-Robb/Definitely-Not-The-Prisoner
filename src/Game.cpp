@@ -30,10 +30,10 @@ bool Game::init()
 		success = false;
 	}
 
-	timerText.setFont(font);
-	timerText.setCharacterSize(20);
-	timerText.setFillColor(sf::Color::White);
-	timerText.setPosition(10.f, 10.f); // Top-left of screen
+	timer_text.setFont(font);
+	timer_text.setCharacterSize(20);
+	timer_text.setFillColor(sf::Color::White);
+	timer_text.setPosition(camera.getPosition().x, camera.getPosition().y);
 
 	if (!level_tileset.loadFromFile("../content/LevelTilemap.png"))
 	{
@@ -171,7 +171,7 @@ void Game::update(float dt)
 		int seconds = static_cast<int>(elapsedTime) % 60;
 		char buffer[16];
 		std::sprintf(buffer, "%02d:%02d", minutes, seconds);
-		timerText.setString(buffer);
+		timer_text.setString(buffer);
 
 		camera.update(level->getPlayer().getSprite().getPosition(), dt);
 
@@ -214,7 +214,7 @@ void Game::render()
 		break;
 	}
 
-	window.draw(timerText);
+	window.draw(timer_text);
 	
 }
 
@@ -235,13 +235,9 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case MENU:
 		//In-menu inputs
-		if (event.key.code == sf::Keyboard::Escape)
+		if (!keydown)
 		{
-			window.close();
-		}
-		else
-		{
-			state = CUTSCENE;
+			state = GAMEPLAY;
 		}
 
 		break;
@@ -283,12 +279,7 @@ void Game::keyboardInput(const sf::Event& event)
 		}
 		break;
 	case END:
-		//In-end screen inputs
-		if (event.key.code == sf::Keyboard::Escape)
-		{
-			window.close();
-		}
-		else
+		if (!keydown)
 		{
 			state = MENU;
 		}
@@ -296,14 +287,12 @@ void Game::keyboardInput(const sf::Event& event)
 		break;
 
 	case PAUSE:
-		if(event.key.code == sf::Keyboard::Escape)
-		{
-			window.close();
-		}
-	else
+		
+	if(!keydown)
 	{
 		state = GAMEPLAY;
 	}
+	break;
 	}
 }
 

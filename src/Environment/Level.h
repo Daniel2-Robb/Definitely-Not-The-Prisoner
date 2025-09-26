@@ -48,6 +48,7 @@ private:
 
 	std::vector<std::vector<bool>> walkableGrid;
 
+	
 
 public:
 	Level(sf::Texture& tileset, sf::Texture& entity_tileset);
@@ -59,6 +60,8 @@ public:
 	void render(sf::RenderWindow& window);
 	bool collisionCheck(Entity& entity);
 	Player& getPlayer();
+	int enemy_count = 0;
+	
 
 	std::array<std::array<bool, 100>, 100> collision_map;
 };

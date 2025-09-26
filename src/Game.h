@@ -10,6 +10,7 @@
 #include "Flavour/Cutscene.h"
 #include "Flavour/Menu.h"
 #include "Flavour/End.h"
+#include "Flavour/Pause.h"
 
 class Game
 {
@@ -26,6 +27,7 @@ private:
 	Cutscene* cutscene = nullptr;
 	Menu* menu = nullptr;
 	End* end = nullptr;
+	Pause* pause = nullptr;
 
 	// Gamestate logic
 	enum GameState
@@ -33,6 +35,7 @@ private:
 		MENU,
 		CUTSCENE,
 		GAMEPLAY,
+		PAUSE,
 		END
 	} state = MENU;
 	sf::Font font;

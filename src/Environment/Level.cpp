@@ -59,6 +59,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, std::array<st
 				enemy->setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
 				enemy->getSprite().setPosition(j * tile_size, i * tile_size);
 				enemies.push_back(enemy);
+				enemy_count++;
 
 			}
 		}
@@ -176,3 +177,4 @@ Player& Level::getPlayer()
 {
 	return *player;
 }
+

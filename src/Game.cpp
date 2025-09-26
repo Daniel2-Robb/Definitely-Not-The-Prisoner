@@ -13,6 +13,7 @@ Game::~Game()
 	delete menu;
 	delete cutscene;
 	delete end;
+	delete pause;
 }
 
 
@@ -137,9 +138,11 @@ bool Game::init()
 	cutscene = new Cutscene();
 	menu = new Menu();
 	end  = new End();
+	pause = new Pause();
 	cutscene->cutsceneInit();
 	menu->menuInit(window);
 	end->endInit(window);
+	pause->pauseInit(window);
 
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
 
@@ -157,7 +160,7 @@ void Game::update(float dt)
 	case GAMEPLAY:
 		level->update(dt);
 
-		if (level->enemy_count == 0)
+		if (level->enemy_count <= 0)
 		{
 			state = END;
 		}
@@ -206,6 +209,9 @@ void Game::render()
 		end->endRender(window);
 		break;
 
+	case PAUSE:
+		pause->pauseRender(window);
+		break;
 	}
 
 	window.draw(timerText);
@@ -270,6 +276,10 @@ void Game::keyboardInput(const sf::Event& event)
 		case sf::Keyboard::Scancode::Down:
 			level->getPlayer().playerInput(keydown ? Player::Input::START_MOVE_DOWN : Player::Input::STOP_MOVE_DOWN);
 			break;
+
+		case sf::Keyboard::Scancode::P:
+			state = END;
+			break;
 		}
 		break;
 	case END:
@@ -284,6 +294,16 @@ void Game::keyboardInput(const sf::Event& event)
 		}
 
 		break;
+
+	case PAUSE:
+		if(event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+		}
+	else
+	{
+		state = GAMEPLAY;
+	}
 	}
 }
 

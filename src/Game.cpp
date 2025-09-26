@@ -73,7 +73,7 @@ bool Game::init()
 	// Horizontal corridors
 	for (int x = 1; x < 55; x++)
 	{
-		if (x < 10)
+		if (x < 10 || x > 27 && x < 42 || x > 46 && x < 50 || x > 52)
 			temp_tiles[8][x] = Level::Tile::WALL;
 
 		if (x < 2 || x > 8 && x < 27)
@@ -82,7 +82,10 @@ bool Game::init()
 		if (x > 16 && x < 22)
 			temp_tiles[21][x] = Level::Tile::WALL;
 
-		if (x > 18 && x < 26 || x > 34)
+		if (x > 48 && x < 50 || x > 52)
+			temp_tiles[27][x] = Level::Tile::WALL;
+
+		if (x > 18 && x < 32 || x > 40)
 			temp_tiles[34][x] = Level::Tile::WALL;
 
 		if (x < 2 || x > 8 && x < 18)
@@ -104,8 +107,14 @@ bool Game::init()
 		if (y > 20 && y < 44)
 			temp_tiles[y][18] = Level::Tile::WALL;
 
-		if (y > 12 && y < 25)
+		if (y > 6 && y < 25)
 			temp_tiles[y][27] = Level::Tile::WALL;
+
+		if (y > 12 && y < 38)
+			temp_tiles[y][36] = Level::Tile::WALL;
+
+		if (y < 2 || y > 6 && y < 28)
+			temp_tiles[y][48] = Level::Tile::WALL;
 	}
 
 	// Add spawns and checkpoints

@@ -47,7 +47,7 @@ int main()
 
         game.update(dt);
 
-        window.clear(sf::Color::Cyan);
+        window.clear(sf::Color::Black);
         game.render();
         window.display();
     }

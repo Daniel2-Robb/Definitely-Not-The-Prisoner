@@ -239,8 +239,12 @@ void Game::update(float dt)
 
 		// Calculate parameter values for player aiming
 		sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition() - window.getPosition());
-		sf::Vector2f relative_position(window.getSize().x / 2, window.getSize().y / 2);
-		relative_position += level->getPlayer().getSprite().getPosition() - camera.getView().getCenter();
+		sf::FloatRect playercollider = level->getPlayer().getCollider();
+		sf::Vector2f relative_position = playercollider.getPosition();
+		relative_position += sf::Vector2f(playercollider.getSize().x / 2, playercollider.getSize().y); // NOTE: Do not ask me why y isn't halved I have no idea probably some error somewhere else idfk
+		relative_position -= camera.getPosition();
+		relative_position.x *= 4;
+		relative_position.y *= 4;
 		level->getPlayer().rotationTarget(mouse_position, relative_position);
 		break;
 

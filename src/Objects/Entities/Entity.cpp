@@ -96,8 +96,6 @@ void Entity::rotationTarget(sf::Vector2f target_pos)
 
 void Entity::rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos)
 {
-    // TODO: Modify to get position relative to player location on screen and not absolute level location
-
     float vec_x = target_pos.x - (relative_pos.x + (0.5 * collider.getSize().x));
     float vec_y = target_pos.y - (relative_pos.y + (0.5 * collider.getSize().y));
 
@@ -112,10 +110,6 @@ void Entity::rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos)
     {
         rotation_angle = atan(abs(vec_x / vec_y));
     }
-
-    // Temporarily alter player sprite's origin point for rotation
-    //sprite.setOrigin(0.5 * collider.getPosition().x, 0.5 * collider.getPosition().y);
-
 
     // Adjust rotation for each potential corner
     if (vec_x >= 0 && vec_y >= 0)
@@ -135,9 +129,6 @@ void Entity::rotationTarget(sf::Vector2f target_pos, sf::Vector2f relative_pos)
 
     sprite.setRotation(rotation_angle); // +180 is due to character textures facing downwards
     rotation = rotation_angle;
-
-    // Reset player origin point to keep other transformations working
-    //sprite.setOrigin(0, 0);
 }
 
 

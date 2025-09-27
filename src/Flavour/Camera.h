@@ -9,7 +9,7 @@ class Camera
 private:
 	sf::RenderWindow& window;
 	sf::View view;
-	float speed = 2.f;
+	float speed = 5.f;
 	float minvalue = 1.f;
 
 public:

@@ -3,7 +3,7 @@
 
 Camera::Camera(sf::RenderWindow& window) : window(window)
 {
-	view.setSize(sf::Vector2f(window.getSize()));
+	view.setSize(sf::Vector2f(window.getSize().x / 4, window.getSize().y / 4));
 	view.setCenter(window.getSize().x / 2, window.getSize().y / 2);
 }
 
@@ -11,7 +11,7 @@ Camera::Camera(sf::RenderWindow& window) : window(window)
 void Camera::update(sf::Vector2f target_pos, float dt)
 {
 	// Set size to account for window resizing
-	view.setSize(sf::Vector2f(window.getSize()));
+	view.setSize(sf::Vector2f(window.getSize().x / 4, window.getSize().y / 4));
 
 	sf::Vector2f new_pos = view.getCenter();
 	// TODO: Increase speed with distance from player?

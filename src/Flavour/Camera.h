@@ -23,4 +23,4 @@ public:
 	sf::Vector2f getPosition();
 };
 
-#endif // _NOTTHEPRISONER_CAMERA_H_s
+#endif // _NOTTHEPRISONER_CAMERA_H_

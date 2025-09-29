@@ -1,9 +1,6 @@
 
 #include "Weapon.h"
 
-// NOTE: Remove
-#include <iostream>
-
 Weapon::Weapon(sf::Texture& texture, Type type, float proj_speed, float proj_lifetime)
 	: GameObject(texture), texture(texture), type(type), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime)
 {

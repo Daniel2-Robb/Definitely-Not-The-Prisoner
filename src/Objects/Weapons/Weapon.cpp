@@ -18,8 +18,6 @@ Weapon::~Weapon()
 
 void Weapon::update(float dt)
 {
-	std::cout << projectiles.size() << std::endl;
-
 	for (int i = 0; i < projectiles.size(); i++)
 	{
 		if (projectiles[i] != nullptr &&
@@ -65,11 +63,18 @@ Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 	}
 
 	projectile = new Projectile(texture, projectile_lifetime);
-	// TODO: Change to originate from centre of player and have smaller hitbox/collider size
-	projectile->setCollider({ position.x, position.y, 16, 16 });
+	// TODO: Change to originate more from centre of player and have smaller hitbox/collider size
 	projectile->setVelocity(velocity);
 	projectile->getSprite().setTextureRect({ 16, 16 * type, 16, 16 });
 	projectile->getSprite().setRotation(angle);
+	if (type == Type::FISTS)
+	{
+		projectile->setCollider({ position.x, position.y, 6, 6 });
+	}
+	else
+	{
+		projectile->setCollider({ position.x, position.y, 4, 4 });
+	}
 
 	projectiles.push_back(projectile);
 

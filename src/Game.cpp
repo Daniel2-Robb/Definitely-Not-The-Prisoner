@@ -97,7 +97,7 @@ bool Game::init()
 	temp_tiles[29] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
 	temp_tiles[30] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
 	temp_tiles[31] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
-	temp_tiles[32] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
+	temp_tiles[32] = { 23,48,48,48,53,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
 	temp_tiles[33] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
 	temp_tiles[34] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
 	temp_tiles[35] = { 23,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,21 };
@@ -190,7 +190,7 @@ bool Game::init()
 		}
 	}
 
-	level = new Level(level_tileset, character_spritesheet, level_tiles);
+	level = new Level(level_tileset, character_spritesheet, weapon_spritesheet, level_tiles);
 	cutscene = new Cutscene();
 	menu = new Menu();
 	end  = new End();
@@ -201,10 +201,6 @@ bool Game::init()
 	pause->pauseInit(window);
 
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
-
-	// NOTE: Bad but no time so whatever
-	// TODO: Pass weapon spritesheet in better for god's sake
-	level->getPlayer().weapon = new Weapon(weapon_spritesheet, 300.f, 5000.f, "gun");
 
 	return success;
 }
@@ -316,7 +312,6 @@ void Game::keyboardInput(const sf::Event& event)
 
 	case GAMEPLAY:
 		//In-game inputs
-
 		switch (event.key.scancode)
 		{
 		case sf::Keyboard::Scancode::A:
@@ -340,10 +335,11 @@ void Game::keyboardInput(const sf::Event& event)
 			break;
 
 		case sf::Keyboard::Scancode::P:
-			state = END;
+			state = END; // TODO: Change to PAUSE when pausing implemented
 			break;
 		}
 		break;
+
 	case END:
 		if (!keydown)
 		{
@@ -364,11 +360,19 @@ void Game::keyboardInput(const sf::Event& event)
 
 void Game::mouseInput(const sf::Event& event)
 {
-	// TODO: Add player mouse input
-
-	if (event.mouseButton.button == sf::Mouse::Left &&
-		state == GAMEPLAY)
+	switch (state)
 	{
-		level->getPlayer().playerInput(Player::Input::ATTACK);
+	case GAMEPLAY:
+		if (event.mouseButton.button == sf::Mouse::Left)
+		{
+			level->getPlayer().playerInput(Player::Input::ATTACK);
+		}
+		else if (event.mouseButton.button == sf::Mouse::Right)
+		{
+			level->getPlayer().playerInput(Player::Input::DROP);
+		}
+		break;
 	}
+
+	
 }

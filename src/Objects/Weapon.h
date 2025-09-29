@@ -2,7 +2,6 @@
 #ifndef _NOTAPRISONER_WEAPON_H_
 #define _NOTAPRISONER_WEAPON_H_
 
-#include <string>
 #include <vector>
 
 #include "Entities/Entity.h"
@@ -19,9 +18,14 @@ private:
 	sf::Clock timer;
 
 public:
-	const std::string name;
+	enum WeaponType
+	{
+		FISTS,
+		PISTOL,
+		SHOTGUN
+	} const type;
 
-	Weapon(sf::Texture& texture, float proj_speed, float proj_lifetime, std::string name);
+	Weapon(sf::Texture& texture, WeaponType type, float proj_speed, float proj_lifetime);
 	~Weapon();
 
 	void update(float dt);

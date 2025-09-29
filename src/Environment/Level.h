@@ -43,6 +43,7 @@ private:
 	// Rendering/Graphics
 	sf::Texture& tileset;
 	sf::Texture& character_tileset;
+	sf::Texture& weapon_tileset;
 	sf::Sprite tile_sprite;
 
 	// Level Data
@@ -53,13 +54,12 @@ private:
 	std::vector<sf::Vector2f> player_checkpoints; // First entry in this vector is treated as spawn
 	std::vector<sf::Vector2f> enemy_spawns;
 	int current_checkpoint = 0;
+
+	std::vector<Weapon> weapons;
 	
 	const int tile_size = 16;
-	// TODO: Change player checkpoints/spawn from Tile type to GameObject list
 
 	Player* player = nullptr;
-	
-	std::vector<Entity*> projectiles;
 
 	// TODO: Replace usage in pathfinding with collision_map then remove
 	std::vector<std::vector<bool>> walkableGrid;
@@ -74,8 +74,8 @@ private:
 public:
 	bool tileCollisionCheck(Entity& entity);
 
-	Level(sf::Texture& tileset, sf::Texture& entity_tileset);
-	Level(sf::Texture& tileset, sf::Texture& entity_tileset, const std::array<std::array<int, 100>, 100>& map_tiles);
+	Level(sf::Texture& tileset, sf::Texture& entity_tileset, sf::Texture& weapon_tileset);
+	Level(sf::Texture& tileset, sf::Texture& entity_tileset, sf::Texture& weapon_tileset, const std::array<std::array<int, 100>, 100>& map_tiles);
 	~Level();
 	std::vector<Enemy*> enemies;
 	const std::vector<std::vector<bool>>& getCollisionMap() const { return walkableGrid; }

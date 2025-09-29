@@ -1,9 +1,10 @@
 
 #include "Weapon.h"
 
-Weapon::Weapon(sf::Texture& texture, float proj_speed, float proj_lifetime, std::string name)
-	: GameObject(texture), texture(texture), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime), name(name)
+Weapon::Weapon(sf::Texture& texture, WeaponType type, float proj_speed, float proj_lifetime)
+	: GameObject(texture), texture(texture), type(type), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime)
 {
+	getSprite().setTextureRect({ 0, 16 * type, 16, 16 });
 }
 
 Weapon::~Weapon()
@@ -60,9 +61,10 @@ Entity* Weapon::shoot(sf::Vector2f position, float angle)
 	}
 
 	projectile = new Entity(texture);
+	// TODO: Change to originate from centre of player and have smaller hitbox/collider size
 	projectile->setCollider({ position.x, position.y, 16, 16 });
 	projectile->setVelocity(velocity);
-	projectile->getSprite().setTextureRect({ 16, 16, 16, 16 });
+	projectile->getSprite().setTextureRect({ 16, 16 * type, 16, 16 });
 	projectile->getSprite().setRotation(angle);
 
 	projectiles.push_back(projectile);

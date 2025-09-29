@@ -9,7 +9,7 @@ class Player : public Entity
 {
 private:
 	// Default weapon
-	//Weapon hands;
+	Weapon hands;
 
 
 public:
@@ -28,12 +28,13 @@ public:
 		STOP_MOVE_UP,
 		START_MOVE_DOWN,
 		STOP_MOVE_DOWN,
-		ATTACK
+		ATTACK,
+		DROP
 	};
 
 	Input player_state = IDLE;
 
-	Player(sf::Texture& texture/*, sf::Texture& weapon_tileset*/);
+	Player(sf::Texture& texture, sf::Texture& weapon_tileset);
 	~Player();
 	
 	void update(float dt) override;

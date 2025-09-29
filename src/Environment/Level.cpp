@@ -1,8 +1,8 @@
 
 #include "Level.h"
 
-Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
-	: tileset(tileset), character_tileset(entity_tileset)
+Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset, sf::Texture& weapon_tileset)
+	: tileset(tileset), character_tileset(entity_tileset), weapon_tileset(weapon_tileset)
 {
 	// Initialize all tiles to Empty
 	for (auto& row : tiles)
@@ -21,13 +21,13 @@ Level::Level(sf::Texture& tileset, sf::Texture& entity_tileset)
 		row.fill(false);
 	}
 
-	player = new Player(this->character_tileset);
+	player = new Player(this->character_tileset, this->weapon_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
 	player->setCollider(sf::FloatRect(0, 0, 16, 16));
 }
 
-Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, const std::array<std::array<int, 100>, 100>& map_tiles)
-	: tileset(tileset), character_tileset(character_tileset)
+Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, sf::Texture& weapon_tileset, const std::array<std::array<int, 100>, 100>& map_tiles)
+	: tileset(tileset), character_tileset(character_tileset), weapon_tileset(weapon_tileset)
 {
 	// Set up the tile sprite
 	tile_sprite.setTexture(this->tileset);
@@ -48,7 +48,7 @@ Level::Level(sf::Texture& tileset, sf::Texture& character_tileset, const std::ar
 		enemy_count++;
 	}
 
-	player = new Player(this->character_tileset);
+	player = new Player(this->character_tileset, this->weapon_tileset);
 	player->getSprite().setTextureRect(sf::IntRect(0, 0, 16, 16));
 	player->setCollider(sf::FloatRect(player_checkpoints[current_checkpoint].x, player_checkpoints[current_checkpoint].y, 16, 16));
 }
@@ -363,6 +363,17 @@ void Level::makeTiles(const std::array<std::array<int, 100>, 100>& map)
 				enemy_spawns.push_back(sf::Vector2f(j * tile_size, i * tile_size));
 				break;
 
+				// Weapon spawn tiles
+			case 53:
+			{
+				tiles[i][j] = Tile::FLOOR_DEFAULT;
+				tile_rotation[i][j] = 0;
+				Weapon weapon = Weapon(weapon_tileset, Weapon::WeaponType::PISTOL, 3.f, 5000.f);
+				weapon.setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
+				weapons.push_back(weapon);
+				break;
+			}
+
 			default:
 				tiles[i][j] = Tile::EMPTY;
 				tile_rotation[i][j] = 0;
@@ -422,7 +433,7 @@ bool Level::enemyCollisionCheck(Entity& entity)
 
 bool Level::bulletCollisionCheck(Entity& entity)
 {
-	for (Entity* bullet : projectiles)
+	for (Entity* bullet : player->weapon->getProjectiles())
 	{
 		if (bullet->is_loaded &&
 			bullet->getCollider().intersects(entity.getCollider()))
@@ -442,8 +453,6 @@ void Level::update(float dt)
 	// Entity updating and collision checking
 	player->update(dt);
 	while (tileCollisionCheck(*player));
-
-	projectiles = player->weapon->getProjectiles();
 
 	for (Enemy* enemy : enemies)
 	{
@@ -476,11 +485,29 @@ void Level::update(float dt)
 		player->setCollider(temprect);
 	}
 
-	for (Entity* projectile : projectiles)
+	// Check for projectile collision with enemies
+	for (Entity* projectile : player->weapon->getProjectiles())
 	{
 		if (tileCollisionCheck(*projectile))
 		{
 			projectile->is_loaded = false;
+		}
+	}
+
+	// Check for player collision with items
+	for (Weapon& weapon : weapons)
+	{
+		if (weapon.is_loaded && 
+			player->weapon != nullptr &&
+			weapon.getCollider().intersects(player->getCollider()))
+		{
+			for (Entity* projectile : player->weapon->getProjectiles())
+			{
+				projectile->is_loaded = false;
+			}
+
+			weapon.is_loaded = false;
+			player->weapon = &weapon;
 		}
 	}
 }
@@ -537,6 +564,15 @@ void Level::render(sf::RenderWindow& window)
 		}
 	}
 
+	// Render objects
+	for (Weapon& weapon : weapons)
+	{
+		if (weapon.is_loaded)
+		{
+			window.draw(weapon.getSprite());
+		}
+	}
+
 	// Render entities
 	for (Enemy* enemy : enemies)
 	{
@@ -549,7 +585,7 @@ void Level::render(sf::RenderWindow& window)
 	window.draw(player->getSprite());
 
 	// Draw projectiles
-	for (Entity* projectile : projectiles)
+	for (Entity* projectile : player->weapon->getProjectiles())
 	{
 		if (projectile->is_loaded)
 		{

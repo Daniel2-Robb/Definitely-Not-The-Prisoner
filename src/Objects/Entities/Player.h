@@ -2,7 +2,7 @@
 #ifndef _NOTTHEPRISONER_PLAYER_H_
 #define _NOTTHEPRISONER_PLAYER_H_
 
-#include "../Weapon.h"
+#include "../Weapons/Weapon.h"
 #include "Entity.h"
 
 class Player : public Entity

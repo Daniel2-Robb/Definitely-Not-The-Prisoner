@@ -1,7 +1,10 @@
 
 #include "Weapon.h"
 
-Weapon::Weapon(sf::Texture& texture, WeaponType type, float proj_speed, float proj_lifetime)
+// NOTE: Remove
+#include <iostream>
+
+Weapon::Weapon(sf::Texture& texture, Type type, float proj_speed, float proj_lifetime)
 	: GameObject(texture), texture(texture), type(type), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime)
 {
 	getSprite().setTextureRect({ 0, 16 * type, 16, 16 });
@@ -9,7 +12,7 @@ Weapon::Weapon(sf::Texture& texture, WeaponType type, float proj_speed, float pr
 
 Weapon::~Weapon()
 {
-	for (Entity* projectile : projectiles)
+	for (Projectile* projectile : projectiles)
 	{
 		delete projectile;
 	}
@@ -18,24 +21,28 @@ Weapon::~Weapon()
 
 void Weapon::update(float dt)
 {
-	for (Entity* projectile : projectiles)
+	std::cout << projectiles.size() << std::endl;
+
+	for (int i = 0; i < projectiles.size(); i++)
 	{
-		if (projectile != nullptr &&
-			projectile->is_loaded)
+		if (projectiles[i] != nullptr &&
+			projectiles[i]->is_loaded)
 		{
-			projectile->update(dt);
-			// TODO: Check entity lifetime and delete if over it
+			projectiles[i]->update(dt);
 		}
 		else
 		{
-			// TODO: Remove null pointer from vector list
+			// Delete then remove unloaded projectile from vector list
+			delete projectiles[i];
+			projectiles.erase(std::next(projectiles.begin(), i));
+			i--;
 		}
 	}
 }
 
-Entity* Weapon::shoot(sf::Vector2f position, float angle)
+Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 {
-	Entity* projectile = nullptr;
+	Projectile* projectile = nullptr;
 
 	sf::Vector2f velocity;
 
@@ -60,7 +67,7 @@ Entity* Weapon::shoot(sf::Vector2f position, float angle)
 		velocity = sf::Vector2f(-adjacent, -opposite);
 	}
 
-	projectile = new Entity(texture);
+	projectile = new Projectile(texture, projectile_lifetime);
 	// TODO: Change to originate from centre of player and have smaller hitbox/collider size
 	projectile->setCollider({ position.x, position.y, 16, 16 });
 	projectile->setVelocity(velocity);
@@ -73,7 +80,7 @@ Entity* Weapon::shoot(sf::Vector2f position, float angle)
 }
 
 
-std::vector<Entity*>& Weapon::getProjectiles()
+std::vector<Projectile*>& Weapon::getProjectiles()
 {
 	return projectiles;
 }

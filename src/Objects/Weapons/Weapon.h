@@ -4,34 +4,33 @@
 
 #include <vector>
 
-#include "Entities/Entity.h"
-#include "GameObject.h"
+#include "../GameObject.h"
+#include "Projectile.h"
 
 class Weapon : public GameObject
 {
 private:
 	sf::Texture& texture;
 
-	std::vector<Entity*> projectiles;
+	std::vector<Projectile*> projectiles;
 	float projectile_speed;
 	float projectile_lifetime;
-	sf::Clock timer;
 
 public:
-	enum WeaponType
+	enum Type
 	{
 		FISTS,
 		PISTOL,
 		SHOTGUN
 	} const type;
 
-	Weapon(sf::Texture& texture, WeaponType type, float proj_speed, float proj_lifetime);
+	Weapon(sf::Texture& texture, Type type, float proj_speed, float proj_lifetime);
 	~Weapon();
 
 	void update(float dt);
-	Entity* shoot(sf::Vector2f position, float angle);
+	Projectile* shoot(sf::Vector2f position, float angle);
 
-	std::vector<Entity*>& getProjectiles();
+	std::vector<Projectile*>& getProjectiles();
 };
 
 #endif //_NOTAPRISONER_WEAPON_H_

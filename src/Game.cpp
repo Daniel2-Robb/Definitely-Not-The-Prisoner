@@ -207,8 +207,6 @@ bool Game::init()
 
 void Game::update(float dt)
 {
-	std::cout << 1 / dt << std::endl;
-
 	switch (state)
 	{
 	case MENU:
@@ -276,7 +274,7 @@ void Game::render()
 		break;
 	}
 
-	window.draw(timer_text);
+	//window.draw(timer_text);
 	
 }
 

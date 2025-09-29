@@ -26,8 +26,11 @@ set(SOURCE_FILES
 
     src/Objects/GameObject.h 
     src/Objects/GameObject.cpp 
-    src/Objects/Weapon.h 
-    src/Objects/Weapon.cpp 
+
+    src/Objects/Weapons/Weapon.h 
+    src/Objects/Weapons/Weapon.cpp 
+    src/Objects/Weapons/Projectile.h 
+    src/Objects/Weapons/Projectile.cpp 
 
     src/Objects/Entities/Entity.h 
     src/Objects/Entities/Entity.cpp 

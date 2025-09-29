@@ -130,6 +130,8 @@ void Level::makeTiles(const std::array<std::array<int, 100>, 100>& map)
 	51 - playercheckpoint
 	52 - enemyspawn
 
+	53 - pistolspawn
+
 	other - empty
 	*/
 
@@ -368,7 +370,7 @@ void Level::makeTiles(const std::array<std::array<int, 100>, 100>& map)
 			{
 				tiles[i][j] = Tile::FLOOR_DEFAULT;
 				tile_rotation[i][j] = 0;
-				Weapon weapon = Weapon(weapon_tileset, Weapon::WeaponType::PISTOL, 3.f, 5000.f);
+				Weapon weapon = Weapon(weapon_tileset, Weapon::Type::PISTOL, 300.f, 3000.f);
 				weapon.setCollider(sf::FloatRect(j * tile_size, i * tile_size, 16, 16));
 				weapons.push_back(weapon);
 				break;

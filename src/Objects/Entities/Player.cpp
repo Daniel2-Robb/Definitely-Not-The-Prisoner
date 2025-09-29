@@ -2,7 +2,7 @@
 #include "Player.h"
 
 Player::Player(sf::Texture& texture, sf::Texture& weapon_tileset) 
-	: Entity(texture), hands(weapon_tileset, Weapon::WeaponType::FISTS, 20.f, 300.f)
+	: Entity(texture), hands(weapon_tileset, Weapon::Type::FISTS, 20.f, 150.f)
 {
 	speed = 100.f;
 }
@@ -79,7 +79,7 @@ void Player::playerInput(Player::Input input)
 			weaponcollider.top = collider.top + collider.height;
 			weapon->setCollider(weaponcollider);
 
-			for (Entity* projectile : weapon->getProjectiles())
+			for (Projectile* projectile : weapon->getProjectiles())
 			{
 				projectile->is_loaded = false;
 			}

@@ -13,8 +13,8 @@ private:
 	sf::Texture& texture;
 
 	std::vector<Projectile*> projectiles;
-	float projectile_speed;
-	float projectile_lifetime;
+	float proj_speed;
+	float proj_lifetime;
 
 public:
 	enum Type

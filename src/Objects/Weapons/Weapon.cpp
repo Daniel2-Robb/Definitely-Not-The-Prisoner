@@ -2,19 +2,19 @@
 #include "Weapon.h"
 
 Weapon::Weapon(sf::Texture& texture, Type type)
-	: GameObject(texture), texture(texture), type(type)
+	: GameObject(texture), texture(texture), type(type), proj_speed(0.f)
 {
 	getSprite().setTextureRect({ 0, 16 * type, 16, 16 });
 
 	switch (type)
 	{
 	case FISTS:
-		projectile_speed = 40.f;
-		projectile_lifetime = 200.f;
+		proj_speed = 40.f;
+		proj_lifetime = 200.f;
 		break;
 	case PISTOL:
-		projectile_speed = 300.f;
-		projectile_lifetime = 3000.f;
+		proj_speed = 300.f;
+		proj_lifetime = 3000.f;
 		break;
 	}
 }
@@ -55,8 +55,8 @@ Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 	sf::Vector2f offset;
 
 	float radians = (float((int(angle) % 90)) / 360) * 6.28318;
-	float opposite = sin(radians) * projectile_speed;
-	float adjacent = cos(radians) * projectile_speed;
+	float opposite = sin(radians) * proj_speed;
+	float adjacent = cos(radians) * proj_speed;
 
 	if (angle >= 0 && angle < 90)
 	{
@@ -75,7 +75,7 @@ Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 		velocity = sf::Vector2f(-adjacent, -opposite);
 	}
 
-	projectile = new Projectile(texture, projectile_lifetime);
+	projectile = new Projectile(texture, proj_lifetime);
 	// TODO: Change to originate more from centre of player and have smaller hitbox/collider size
 	projectile->setVelocity(velocity);
 	projectile->getSprite().setTextureRect({ 16, 16 * type, 16, 16 });

@@ -24,7 +24,7 @@ public:
 		SHOTGUN
 	} const type;
 
-	Weapon(sf::Texture& texture, Type type, float proj_speed, float proj_lifetime);
+	Weapon(sf::Texture& texture, Type type);
 	~Weapon();
 
 	void update(float dt);

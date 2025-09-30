@@ -1,10 +1,22 @@
 
 #include "Weapon.h"
 
-Weapon::Weapon(sf::Texture& texture, Type type, float proj_speed, float proj_lifetime)
-	: GameObject(texture), texture(texture), type(type), projectile_speed(proj_speed), projectile_lifetime(proj_lifetime)
+Weapon::Weapon(sf::Texture& texture, Type type)
+	: GameObject(texture), texture(texture), type(type)
 {
 	getSprite().setTextureRect({ 0, 16 * type, 16, 16 });
+
+	switch (type)
+	{
+	case FISTS:
+		projectile_speed = 40.f;
+		projectile_lifetime = 200.f;
+		break;
+	case PISTOL:
+		projectile_speed = 300.f;
+		projectile_lifetime = 3000.f;
+		break;
+	}
 }
 
 Weapon::~Weapon()
@@ -40,6 +52,7 @@ Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 	Projectile* projectile = nullptr;
 
 	sf::Vector2f velocity;
+	sf::Vector2f offset;
 
 	float radians = (float((int(angle) % 90)) / 360) * 6.28318;
 	float opposite = sin(radians) * projectile_speed;
@@ -67,13 +80,22 @@ Projectile* Weapon::shoot(sf::Vector2f position, float angle)
 	projectile->setVelocity(velocity);
 	projectile->getSprite().setTextureRect({ 16, 16 * type, 16, 16 });
 	projectile->getSprite().setRotation(angle);
+
+	// TODO: Modify position to match with player rotation visually
+	/*offset = velocity;
+	offset.x *= 8 / projectile_speed;
+	offset.y *= 8 / projectile_speed;
+	
+	position.x += 8 + offset.x;
+	position.y += 8 + offset.y;*/
+
 	if (type == Type::FISTS)
 	{
-		projectile->setCollider({ position.x, position.y, 6, 6 });
+		projectile->setCollider({ position.x + 5, position.y + 5, 6, 6 });
 	}
 	else
 	{
-		projectile->setCollider({ position.x, position.y, 4, 4 });
+		projectile->setCollider({ position.x + 6, position.y + 6, 4, 4 });
 	}
 
 	projectiles.push_back(projectile);

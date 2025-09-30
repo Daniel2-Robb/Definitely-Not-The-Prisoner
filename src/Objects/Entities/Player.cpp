@@ -2,7 +2,7 @@
 #include "Player.h"
 
 Player::Player(sf::Texture& texture, sf::Texture& weapon_tileset) 
-	: Entity(texture), hands(weapon_tileset, Weapon::Type::FISTS, 20.f, 150.f)
+	: Entity(texture), fists(weapon_tileset, Weapon::Type::FISTS)
 {
 	speed = 100.f;
 }
@@ -20,7 +20,7 @@ void Player::update(float dt)
 
 	if (weapon == nullptr)
 	{
-		weapon = &hands;
+		weapon = &fists;
 	}
 	weapon->update(dt);
 }

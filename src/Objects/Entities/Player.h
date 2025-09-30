@@ -9,7 +9,7 @@ class Player : public Entity
 {
 private:
 	// Default weapon
-	Weapon hands;
+	Weapon fists;
 
 
 public:

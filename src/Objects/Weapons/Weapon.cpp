@@ -9,8 +9,8 @@ Weapon::Weapon(sf::Texture& texture, Type type)
 	switch (type)
 	{
 	case FISTS:
-		proj_speed = 40.f;
-		proj_lifetime = 200.f;
+		proj_speed = 100.f;
+		proj_lifetime = 120.f;
 		break;
 	case PISTOL:
 		proj_speed = 300.f;

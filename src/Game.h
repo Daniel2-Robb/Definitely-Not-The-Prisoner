@@ -2,15 +2,13 @@
 #ifndef _NOTTHEPRISONER_GAME_H_
 #define _NOTTHEPRISONER_GAME_H_
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "Settings.h"
 #include "Environment/Level.h"
 #include "Flavour/Camera.h"
 #include "Flavour/Cutscene.h"
 #include "Flavour/Menu.h"
-#include "Flavour/End.h"
-#include "Flavour/Pause.h"
 
 class Game
 {
@@ -23,22 +21,24 @@ private:
 	sf::Texture character_spritesheet;
 	sf::Texture weapon_spritesheet;
 
+	sf::Font font_default;
+
 	// Game data
 	Level* level = nullptr;
 	Cutscene* cutscene = nullptr;
+
+	Settings settings;
 	Menu* menu = nullptr;
-	End* end = nullptr;
-	Pause* pause = nullptr;
 
 	// Gamestate logic
 	enum GameState
 	{
-		MENU,
+		MAINMENU,
 		CUTSCENE,
 		GAMEPLAY,
 		PAUSE,
 		END
-	} state = MENU;
+	} state = MAINMENU;
 	sf::Font font;
 	sf::Text timer_text;
 	float elapsedTime = 0.f;

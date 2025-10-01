@@ -17,12 +17,16 @@ FetchContent_MakeAvailable(SFML)
 set(SOURCE_FILES 
     src/main.cpp 
     src/Game.h 
-    src/Game.cpp
+    src/Game.cpp 
+    src/Settings.h 
+    src/Settings.cpp 
 
+    src/Flavour/Camera.h 
+    src/Flavour/Camera.cpp 
     "src/Flavour/Cutscene.h" 
     "src/Flavour/Cutscene.cpp" 
-    src/Flavour/Camera.h 
-    src/Flavour/Camera.cpp
+    "src/Flavour/Menu.h" 
+    "src/Flavour/Menu.cpp" 
 
     src/Objects/GameObject.h 
     src/Objects/GameObject.cpp 
@@ -41,7 +45,7 @@ set(SOURCE_FILES
     
     "src/Environment/Level.h" 
     "src/Environment/Level.cpp" )
-add_executable(NotThePrisoner ${SOURCE_FILES} "src/Flavour/Menu.h" "src/Flavour/Menu.cpp"   "src/Flavour/End.h" "src/Flavour/End.cpp" "src/Flavour/Pause.h" "src/Flavour/Pause.cpp")
+add_executable(NotThePrisoner ${SOURCE_FILES})
 
 target_link_libraries(NotThePrisoner PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(NotThePrisoner PRIVATE cxx_std_20)

@@ -1,43 +1,140 @@
+
 #include "Menu.h"
 
-Menu::Menu()
-{
+#include <iostream>
 
+Menu::Menu(sf::Font& font, Type type, Settings& settings)
+	: font(font), type(type), settings(settings)
+{
+	// TODO: Initialise sf::Text objects
+	title_text.setFont(font);
+	title_text.setCharacterSize(32);
+	title_text.setFillColor(sf::Color(255, 255, 255));
+	title_text.setPosition(40.f, 40.f);
+
+	options_text.setFont(font);
+	options_text.setCharacterSize(16);
+	options_text.setFillColor(sf::Color(255, 255, 255));
+	options_text.setPosition(40.f, 72.f);
+
+	// TODO: Adjust size and position based on menu type
+	switch (this->type)
+	{
+	case Type::MAIN:
+		title_text.setString("Not A Prisoner");
+		options_desc.push_back("Start Game");
+		options_desc.push_back("Settings");
+		options_desc.push_back("Exit");
+		options_outcome.push_back(OptionType::START);
+		options_outcome.push_back(OptionType::MENU_SETTINGS);
+		options_outcome.push_back(OptionType::BACK);
+		break;
+
+	case Type::PAUSE:
+		title_text.setString("Paused");
+		options_desc.push_back("Resume");
+		options_desc.push_back("Exit to Main Menu");
+		options_outcome.push_back(OptionType::START);
+		options_outcome.push_back(OptionType::BACK);
+		break;
+
+	case Type::SETTINGS:
+		// TODO: Add SETTINGS options after settings are fully implemented
+		title_text.setString("Settings");
+		options_desc.push_back("Back");
+		options_outcome.push_back(OptionType::BACK);
+		break;
+	}
 }
 
-Menu::~Menu()
+Menu::Menu(sf::Font& font, Type type, Menu* parent_menu, Settings& settings)
+	: Menu(font, type, settings)
 {
-
+	parent = parent_menu;
 }
 
-void Menu::menuInit(sf::RenderWindow& window)
+
+void Menu::render(sf::RenderWindow& window)
 {
-	font.loadFromFile(("../content/Fonts/OpenSans-Bold.ttf"));
+	if (child != nullptr)
+	{
+		child->render(window);
+		return;
+	}
 
-	menu_text.setString("Welcome to: Fight 'Em 'Til You Can't"); //working title
-	menu_text.setFont(font);
-	menu_text.setCharacterSize(25);
-	menu_text.setFillColor(sf::Color(0, 0, 0, 255));
-	menu_text.setPosition((window.getSize().x / 2) - (menu_text.getGlobalBounds().width / 2), 100);
-
-	controls.setString("Arrow Keys / WASD to move, Click to attack");
-	controls.setFont(font);
-	controls.setCharacterSize(20);
-	controls.setFillColor(sf::Color(0, 0, 0, 255));
-	controls.setPosition((window.getSize().x / 2) - (controls.getGlobalBounds().width / 2), 150 + menu_text.getGlobalBounds().height);
-
-	start.setString("Press any key to continue");
-	start.setFont(font);
-	start.setCharacterSize(20);
-	start.setFillColor(sf::Color(0, 0, 0, 255));
-	start.setPosition((window.getSize().x / 2) - (start.getGlobalBounds().width / 2), 200 + menu_text.getGlobalBounds().height + controls.getGlobalBounds().height);
-
+	window.draw(title_text);
+	
+	options_text.setPosition(40.f, 72.f);
+	for (int i = 0; i < options_desc.size(); i++)
+	{
+		options_text.setString((selection == i ? "> " : "  ") + options_desc[i]);
+		options_text.move(sf::Vector2f(0, 16.f));
+		window.draw(options_text);
+	}
 }
 
-void Menu::menuRender(sf::RenderWindow& window)
+bool Menu::select()
 {
-	window.draw(menu_text);
-	window.draw(controls);
-	window.draw(start);
+	if (child != nullptr)
+	{
+		if (child->select())
+		{
+			delete child;
+			child = nullptr;
+		}
+		return false;
+	}
 
+	std::cout << options_outcome.size() << ":" << selection << std::endl;
+
+	switch (options_outcome[selection])
+	{
+	case START:
+		loaded = false;
+		break;
+
+	case MENU_SETTINGS:
+		child = new Menu(font, Type::SETTINGS, settings);
+		selection = 0;
+		break;
+
+	case BACK:
+		return true;
+		break; // NOTE: Not necessary?
+	}
+
+	return false;
+}
+
+
+Menu* Menu::getParent()
+{
+	if (child != nullptr)
+	{
+		return child->getParent();
+	}
+	return parent;
+}
+
+void Menu::selectUp()
+{
+	selection--;
+	if (selection < 0)
+	{
+		selection = options_desc.size() - 1;
+	}
+}
+
+void Menu::selectDown()
+{
+	selection++;
+	if (selection >= options_desc.size())
+	{
+		selection = 0;
+	}
+}
+
+bool Menu::getLoaded()
+{
+	return loaded;
 }

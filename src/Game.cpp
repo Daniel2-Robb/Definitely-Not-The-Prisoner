@@ -12,8 +12,6 @@ Game::~Game()
 	delete level;
 	delete menu;
 	delete cutscene;
-	delete end;
-	delete pause;
 }
 
 
@@ -22,7 +20,7 @@ bool Game::init()
 	bool success = true;
 
 	// NOTE: Remove after testing
-	state = MENU;
+	state = MAINMENU;
 
 	if (!font.loadFromFile("../content/Fonts/OpenSans-Bold.ttf")) // Replace with a valid font path
 	{
@@ -48,6 +46,12 @@ bool Game::init()
 	if (!weapon_spritesheet.loadFromFile("../content/WeaponSpritesheet.png"))
 	{
 		std::cout << "WeaponSpritesheet.png failed to load" << std::endl;
+		success = false;
+	}
+
+	if (!font_default.loadFromFile("../content/Fonts/OpenSans-Bold.ttf"))
+	{
+		std::cout << "OpenSans-Bold.ttf failed to load" << std::endl;
 		success = false;
 	}
 
@@ -192,13 +196,7 @@ bool Game::init()
 
 	level = new Level(level_tileset, character_spritesheet, weapon_spritesheet, level_tiles);
 	cutscene = new Cutscene();
-	menu = new Menu();
-	end  = new End();
-	pause = new Pause();
-	cutscene->cutsceneInit();
-	menu->menuInit(window);
-	end->endInit(window);
-	pause->pauseInit(window);
+	menu = new Menu(font_default, Menu::Type::MAIN, settings);
 
 	camera.setCentre(level->getPlayer().getCollider().getPosition());
 
@@ -209,7 +207,7 @@ void Game::update(float dt)
 {
 	switch (state)
 	{
-	case MENU:
+	case MAINMENU:
 		break;
 	case CUTSCENE:
 		break;
@@ -249,10 +247,9 @@ void Game::render()
 {
 	switch (state)
 	{
-	case MENU:
-		
-		menu->menuRender(window);
-
+	case MAINMENU:
+		// TODO: Add rendering menu background
+		menu->render(window);
 		break;
 
 	case CUTSCENE:
@@ -266,11 +263,12 @@ void Game::render()
 		break;
 
 	case END:
-		end->endRender(window);
+		// TODO: Add End cutscene when implemented
 		break;
 
 	case PAUSE:
-		pause->pauseRender(window);
+		// TODO: Add rendering menu background
+		menu->render(window);
 		break;
 	}
 
@@ -293,13 +291,33 @@ void Game::keyboardInput(const sf::Event& event)
 	{
 		
 
-	case MENU:
+	case MAINMENU:
 		//In-menu inputs
-		if (!keydown)
+		if (keydown)
 		{
-			state = GAMEPLAY;
+			if (event.key.scancode == settings.getKeybindMain().up ||
+				event.key.scancode == settings.getKeybindAlternate().up)
+			{
+				menu->selectUp();
+			}
+			else if (event.key.scancode == settings.getKeybindMain().down ||
+				event.key.scancode == settings.getKeybindAlternate().down)
+			{
+				menu->selectDown();
+			}
+			else if (event.key.scancode == settings.getKeybindMain().select ||
+				event.key.scancode == settings.getKeybindAlternate().select)
+			{
+				if (menu->select())
+				{
+					window.close();
+				}
+				else if (!menu->getLoaded())
+				{
+					state = GAMEPLAY;
+				}
+			}
 		}
-
 		break;
 
 	case CUTSCENE:
@@ -341,17 +359,16 @@ void Game::keyboardInput(const sf::Event& event)
 	case END:
 		if (!keydown)
 		{
-			state = MENU;
+			state = MAINMENU;
 		}
 
 		break;
 
 	case PAUSE:
-		
-	if(!keydown)
-	{
-		state = GAMEPLAY;
-	}
+		if(!keydown)
+		{
+			state = GAMEPLAY;
+		}
 	break;
 	}
 }

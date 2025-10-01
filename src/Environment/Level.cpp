@@ -143,7 +143,7 @@ void Level::makeTiles(const std::array<std::array<int, 100>, 100>& map)
 			collision_map[i][j] = (map[i][j] >= 0 && map[i][j] < 32);
 
 			// NOTE: If another soul other than me sees this code, pretend it doesn't exist and isn't real and can't hurt you
-			// NOTE: I was tired and didn't want to right slightly nicer but much more complex code alright sue me
+			// NOTE: I was tired and didn't want to write slightly nicer but much more complex code alright sue me
 			switch (map[i][j])
 			{
 			case 0:
